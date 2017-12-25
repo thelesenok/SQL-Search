@@ -6,6 +6,8 @@ import TypeSelector from '../TypeSelector';
 import TypeService from '../TypeService';
 import SearchTypeSelector from '../SearchTypeSelector';
 import SearchType from '../SearchTypeSelector/SearchType';
+import PropertiesPane from '../PropertiesPane';
+import ResultsPane from '../ResultsPane';
 
 class Application extends Component {
     state = {
@@ -76,6 +78,17 @@ class Application extends Component {
                 <Row>
                     <Col xs={12}>
                         <SearchTypeSelector onChange={this.handleSearchTypeChange} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <PropertiesPane types={this.state.userQuery.searchTypes} 
+                                        properties={this.state.userQuery.properties}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <ResultsPane />
                     </Col>
                 </Row>
             </Grid>
