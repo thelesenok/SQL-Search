@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/lib/Form';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
 import SearchType from './SearchType';
+import {Panel} from "react-bootstrap";
 
 class SearchTypeSelector extends Component {
     state = {
@@ -35,32 +36,34 @@ class SearchTypeSelector extends Component {
 
     render = () => {
         return (
-            <Form horizontal>
-                <FormGroup>
-                    <Checkbox checked={this.state.types.indexOf(SearchType.ATTRIBUTIVE) !== -1} 
-                                readOnly 
-                                inline
-                                name={SearchType.ATTRIBUTIVE}
-                                onChange={this.handleChange}
-                                disabled>
-                        Attributive lookup
-                    </Checkbox>
+            <Panel header="Search params:">
+                <Form horizontal>
+                    <FormGroup>
+                        <Checkbox checked={this.state.types.indexOf(SearchType.ATTRIBUTIVE) !== -1}
+                                  readOnly
+                                  inline
+                                  name={SearchType.ATTRIBUTIVE}
+                                  onChange={this.handleChange}
+                                  disabled>
+                            Attributive lookup
+                        </Checkbox>
 
-                    <Checkbox checked={this.state.types.indexOf(SearchType.RELATIONAL) !== -1} 
-                                onChange={this.handleChange}
-                                name={SearchType.RELATIONAL}
-                                inline>
-                        Relational lookup
-                    </Checkbox>
+                        <Checkbox checked={this.state.types.indexOf(SearchType.RELATIONAL) !== -1}
+                                  onChange={this.handleChange}
+                                  name={SearchType.RELATIONAL}
+                                  inline>
+                            Relational lookup
+                        </Checkbox>
 
-                    <Checkbox checked={this.state.types.indexOf(SearchType.FUZZY) !== -1}
-                                onChange={this.handleChange}
-                                name={SearchType.FUZZY}
-                                inline>
-                        Fuzzy attributive lookup
-                    </Checkbox>
-                </FormGroup>
-            </Form>
+                        <Checkbox checked={this.state.types.indexOf(SearchType.FUZZY) !== -1}
+                                  onChange={this.handleChange}
+                                  name={SearchType.FUZZY}
+                                  inline>
+                            Fuzzy attributive lookup
+                        </Checkbox>
+                    </FormGroup>
+                </Form>
+            </Panel>
         );
     }
 }

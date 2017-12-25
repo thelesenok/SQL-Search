@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
-import TypeSelector from '../TypeSelector';
 import TypeService from '../TypeService';
 import SearchTypeSelector from '../SearchTypeSelector';
 import SearchType from '../SearchTypeSelector/SearchType';
@@ -11,9 +10,9 @@ import ResultsPane from '../ResultsPane';
 
 class Application extends Component {
     state = {
-        selectTypes: [],
+        availableTypes: [],
         userQuery: {
-            selectType: null,
+            selectFrom: null,
             searchTypes: [
                 SearchType.ATTRIBUTIVE
             ],
@@ -26,19 +25,19 @@ class Application extends Component {
         TypeService.getAllTypes()
                 .then(types => {
                     this.setState({
-                        selectTypes: types
+                        availableTypes: types
                     });
                     this._selectType(types[0].value);
                 });
-    }
+    };
 
     handleTypeChange = (selectedType) => {
         this._selectType(selectedType);
-    }
+    };
 
     handleSearchTypeChange= (types) => {
         this._selectSearchType(types);
-    }
+    };
 
     /**
      * Handle search type change
@@ -48,7 +47,7 @@ class Application extends Component {
             searchTypes: types
         });
         this._setUserQuery(newQuery);
-    }
+    };
 
     /**
      * Handle search class change
@@ -56,25 +55,21 @@ class Application extends Component {
     _selectType = (selectedType) => {
         // it's necessary to clean properties
         const newQuery = Object.assign(this.state.userQuery, {
-            selectType: selectedType,
+            selectFrom: selectedType,
             properties: []
         });
         this._setUserQuery(newQuery);
-    }
+    };
 
     _setUserQuery = (query) => {
-        this.setState(query);
-    }
+        this.setState({
+            userQuery: query
+        });
+    };
 
     render = () => {
         return (
             <Grid>
-                <Row>
-                    <Col xs={12}>
-                        <TypeSelector types={this.state.selectTypes} 
-                                        onChange={this.handleTypeChange} />
-                    </Col>
-                </Row>
                 <Row>
                     <Col xs={12}>
                         <SearchTypeSelector onChange={this.handleSearchTypeChange} />
@@ -82,7 +77,9 @@ class Application extends Component {
                 </Row>
                 <Row>
                     <Col xs={12}>
-                        <PropertiesPane types={this.state.userQuery.searchTypes} 
+                        <PropertiesPane availableTypes={this.state.availableTypes}
+                                        searchTypes={this.state.userQuery.searchTypes}
+                                        onTypeChange={this.handleTypeChange}
                                         properties={this.state.userQuery.properties}/>
                     </Col>
                 </Row>

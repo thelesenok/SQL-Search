@@ -25,7 +25,7 @@ const PropertiesTable = (props) => {
             </tbody>
         </Table>
     );
-}
+};
 
 PropertiesTable.propTypes = {
     properties: PropTypes.array.isRequired

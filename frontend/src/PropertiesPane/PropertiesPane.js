@@ -3,32 +3,38 @@ import PropTypes from 'prop-types';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import SearchType from '../SearchTypeSelector/SearchType';
-import PropertiesTable from '../PropertiesTable';
+import PropertiesPaneAttributive from "./attributive/PropertiesPaneAttributive";
 
 const PropertiesPane = (props) => {
-    const { types, properties } = props;
+    const { searchTypes, onTypeChange, availableTypes } = props;
     return (
         <Tabs id="Properties pane" 
                 defaultActiveKey={SearchType.ATTRIBUTIVE} 
                 animation={false}>
 
             <Tab title="Attributive" 
-                    disabled={types.indexOf(SearchType.ATTRIBUTIVE) === -1}
+                    disabled={searchTypes.indexOf(SearchType.ATTRIBUTIVE) === -1}
                     eventKey={SearchType.ATTRIBUTIVE}>
-                <PropertiesTable properties={properties} />
+
+                <PropertiesPaneAttributive availableTypes={availableTypes}
+                                           onTypeChange={onTypeChange} />
             </Tab>
             
             <Tab title="Fuzzy smth" 
-                    disabled={types.indexOf(SearchType.FUZZY) === -1}
+                    disabled={searchTypes.indexOf(SearchType.FUZZY) === -1}
                     eventKey={SearchType.FUZZY}>
                 1111
             </Tab>
         </Tabs>
     );
-}
+};
 
 PropertiesPane.propTypes = {
-    types: PropTypes.array.isRequired,
+    availableTypes: PropTypes.array.isRequired,
+    onTypeChange: PropTypes.func.isRequired,
+
+    searchTypes: PropTypes.array.isRequired,
+
     properties: PropTypes.array.isRequired
 };
 
