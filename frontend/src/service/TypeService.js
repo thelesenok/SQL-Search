@@ -12,6 +12,6 @@ TypeService.getAllTypes = () => {
         });
         resolve(values);
     });
-}
+};
 
 export default TypeService;

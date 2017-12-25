@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     Col,
@@ -7,15 +7,17 @@ import {
     Button,
     Radio
 } from "react-bootstrap";
-import TypeSelector from "./TypeSelector";
-import JoinType from './JoinType';
+import TypeSelector from "../TypeSelector";
+import JoinType from '../../../../service/JoinType';
 
-const AttributiveSearchParams = (props) => {
+const AttributiveSearchParamsPure = (props) => {
     const {
-        onTypeChange,
+        onSelectTypeChange,
         availableTypes,
         joinType,
-        onJoinTypeChange
+        onJoinTypeChange,
+        onPropertyAdd,
+        onPropertiesClear
     } = props;
 
     return (
@@ -24,26 +26,28 @@ const AttributiveSearchParams = (props) => {
                 <Col xs={3}>
                     <Radio name="joinType"
                            checked={joinType === JoinType.AND}
+                           onChange={e => onJoinTypeChange(JoinType.AND)}
                            inline>
                         AND
                     </Radio>
                     <Radio name="joinType"
                            checked={joinType === JoinType.OR}
+                           onChange={e => onJoinTypeChange(JoinType.OR)}
                            inline>
                         OR
                     </Radio>
                 </Col>
                 <Col xs={3}>
-                    <TypeSelector onTypeChange={onTypeChange}
+                    <TypeSelector onTypeChange={onSelectTypeChange}
                                   availableTypes={availableTypes}/>
                 </Col>
                 <Col xs={3}>
-                    <Button block>
+                    <Button block onClick={onPropertyAdd}>
                         +
                     </Button>
                 </Col>
                 <Col xs={3}>
-                    <Button block>
+                    <Button block onClick={onPropertiesClear}>
                         Clear all conditions
                     </Button>
                 </Col>
@@ -52,15 +56,18 @@ const AttributiveSearchParams = (props) => {
     )
 };
 
-AttributiveSearchParams.propTypes = {
-    onTypeChange: PropTypes.func.isRequired,
+AttributiveSearchParamsPure.propTypes = {
+    onSelectTypeChange: PropTypes.func.isRequired,
     availableTypes: PropTypes.array.isRequired,
 
     joinType: PropTypes.oneOf([
         JoinType.AND,
         JoinType.OR
     ]).isRequired,
-    onJoinTypeChange: PropTypes.func.isRequired
+    onJoinTypeChange: PropTypes.func.isRequired,
+
+    onPropertyAdd: PropTypes.func.isRequired,
+    onPropertiesClear: PropTypes.func.isRequired
 };
 
-export default AttributiveSearchParams;
+export default AttributiveSearchParamsPure;
