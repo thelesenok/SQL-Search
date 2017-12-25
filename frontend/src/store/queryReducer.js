@@ -3,7 +3,11 @@ import SearchType from "../service/SearchType";
 import {SEARCH_TYPE_ADD, SEARCH_TYPE_REMOVE} from './query/searchType';
 import {JOIN_TYPE_CHANGE} from "./query/joinType";
 import {SELECT_TYPE_CHANGE} from "./query/selectType";
-import {PROPERTIES_CLEAR, PROPERTY_ADD, PROPERTY_CREATED} from "./query/properties";
+import {
+    ATTRIBUTES_CLEAR, ATTRIBUTE_ADD, ATTRIBUTE_CREATED, ATTRIBUTE_TYPE_CHANGE,
+    ATTRIBUTE_PROPS_LOADED, ATTRIBUTE_PROP_CHANGE
+} from "./query/properties";
+import ArrayUtils from "../utils/ArrayUtils";
 
 const initialState = {
     joinType: JoinType.AND,
@@ -11,7 +15,9 @@ const initialState = {
         SearchType.ATTRIBUTIVE
     ],
     selectType: undefined,
-    properties: []
+    attributes: [],
+
+    propertyCreationAvailable: true
 };
 
 const queryReducer = (state = initialState, action) => {
@@ -31,7 +37,7 @@ const queryReducer = (state = initialState, action) => {
         case SELECT_TYPE_CHANGE: return {
             ...state,
             selectType: action.payload,
-            properties: []
+            attributes: []
         };
 
         case JOIN_TYPE_CHANGE: return {
@@ -39,18 +45,54 @@ const queryReducer = (state = initialState, action) => {
             joinType: action.payload
         };
 
-        case PROPERTY_ADD: return {
-            ...state
+        case ATTRIBUTE_ADD: return {
+            ...state,
+            propertyCreationAvailable: false
         };
 
-        case PROPERTY_CREATED: return {
+        case ATTRIBUTE_CREATED: return {
             ...state,
-            properties: state.properties.concat(action.payload)
+            propertyCreationAvailable: true,
+            attributes: state.attributes.concat(action.payload)
         };
 
-        case PROPERTIES_CLEAR: return {
+        case ATTRIBUTE_TYPE_CHANGE: return {
             ...state,
-            properties: []
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    selectedType: action.payload.selectedType
+                }
+            )
+        };
+
+        case ATTRIBUTE_PROPS_LOADED: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                (attr) => attr.index === action.payload.index,
+                {
+                    propsLoaded: true,
+                    availableProps: action.payload.props
+                }
+            )
+        };
+
+        case ATTRIBUTE_PROP_CHANGE: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    selectedProp: action.payload.selectedProp
+                }
+            )
+        };
+
+        case ATTRIBUTES_CLEAR: return {
+            ...state,
+            attributes: []
         };
 
         default: return state;

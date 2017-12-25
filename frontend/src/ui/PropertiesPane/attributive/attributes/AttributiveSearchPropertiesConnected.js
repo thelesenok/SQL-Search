@@ -2,13 +2,10 @@ import {connect} from "react-redux";
 import AttributiveSearchProperties from "./AttributiveSearchProperties";
 
 const mapStateToProps = (state) => ({
-    properties: state.query.properties
+    attributes: state.query.attributes
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onChange: (type) => {
-        debugger;
-    }
 });
 
 const AttributiveSearchPropertiesConnected = connect(mapStateToProps, mapDispatchToProps)(AttributiveSearchProperties);

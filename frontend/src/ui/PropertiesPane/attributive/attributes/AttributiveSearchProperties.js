@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AttributiveSearchProperty from "./AttributiveSearchProperty";
 import {Table} from "react-bootstrap";
+import AttributiveSearchPropertyConnected from "./AttributiveSearchPropertyConnected";
 
 const AttributiveSearchProperties = (props) => {
-    const { properties } = props;
-    const rows = properties.map(item => {
-        return <AttributiveSearchProperty key={item.index}
-                                          value={item} />
+    const { attributes } = props;
+    const rows = attributes.map(item => {
+        return <AttributiveSearchPropertyConnected key={item.index} value={item} />
     });
 
     return (
@@ -29,7 +28,7 @@ const AttributiveSearchProperties = (props) => {
 };
 
 AttributiveSearchProperties.propTypes = {
-    properties: PropTypes.array.isRequired
+    attributes: PropTypes.array.isRequired
 };
 
 export default AttributiveSearchProperties;

@@ -1,6 +1,6 @@
 import React from 'react';
 import AttributiveSearchParamsPane from "./params/AttributiveSearchParams";
-import AttributiveSearchPropertiesConnected from "./properties/AttributiveSearchPropertiesConnected";
+import AttributiveSearchPropertiesConnected from "./attributes/AttributiveSearchPropertiesConnected";
 
 const PropertiesPaneAttributive = (props) => {
     return [

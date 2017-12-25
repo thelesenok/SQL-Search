@@ -17,7 +17,8 @@ const AttributiveSearchParamsPure = (props) => {
         joinType,
         onJoinTypeChange,
         onPropertyAdd,
-        onPropertiesClear
+        onPropertiesClear,
+        propertyCreationAvailable
     } = props;
 
     return (
@@ -42,7 +43,9 @@ const AttributiveSearchParamsPure = (props) => {
                                   availableTypes={availableTypes}/>
                 </Col>
                 <Col xs={3}>
-                    <Button block onClick={onPropertyAdd}>
+                    <Button block
+                            disabled={!propertyCreationAvailable}
+                            onClick={onPropertyAdd}>
                         +
                     </Button>
                 </Col>
@@ -67,7 +70,9 @@ AttributiveSearchParamsPure.propTypes = {
     onJoinTypeChange: PropTypes.func.isRequired,
 
     onPropertyAdd: PropTypes.func.isRequired,
-    onPropertiesClear: PropTypes.func.isRequired
+    onPropertiesClear: PropTypes.func.isRequired,
+
+    propertyCreationAvailable: PropTypes.bool.isRequired
 };
 
 export default AttributiveSearchParamsPure;

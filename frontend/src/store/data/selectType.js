@@ -13,7 +13,7 @@ export const selectTypesLoad = () => {
             .then((types) => {
                 dispatch(selectTypesLoaded(types));
                 if (types.length > 0) {
-                    dispatch(changeSelectType(types[0]));
+                    dispatch(changeSelectType(types[0].value));
                 }
             });
     }

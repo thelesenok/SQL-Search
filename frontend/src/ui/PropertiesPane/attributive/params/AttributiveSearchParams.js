@@ -2,11 +2,12 @@ import {connect} from "react-redux";
 import AttributiveSearchParamsPure from "./AttributiveSearchParamsPure";
 import {changeJoinType} from "../../../../store/query/joinType";
 import {changeSelectType} from "../../../../store/query/selectType";
-import {propertiesClear, propertyAdd} from "../../../../store/query/properties";
+import {propertiesClear, attributeAdd} from "../../../../store/query/properties";
 
 const mapState = (state) => ({
     availableTypes: state.data.availableTypes,
-    joinType: state.query.joinType
+    joinType: state.query.joinType,
+    propertyCreationAvailable: state.query.propertyCreationAvailable
 });
 
 const mapDispatch = (dispatch) => ({
@@ -17,7 +18,7 @@ const mapDispatch = (dispatch) => ({
         dispatch(changeJoinType(type));
     },
     onPropertyAdd: () => {
-        dispatch(propertyAdd());
+        dispatch(attributeAdd());
     },
     onPropertiesClear: () => {
         dispatch(propertiesClear());
