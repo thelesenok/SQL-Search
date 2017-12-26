@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FormControl} from "react-bootstrap";
+import {FormControl, ProgressBar} from "react-bootstrap";
 
 const SelectTypeSelector = (props) => {
     const {
@@ -8,7 +8,8 @@ const SelectTypeSelector = (props) => {
         availableTypes,
         index,
         onSelectTypeChange,
-        selectedType
+        selectedType,
+        typesLoaded
     } = props;
 
     const typesForSelect = allTypes.filter(type => {
@@ -17,6 +18,12 @@ const SelectTypeSelector = (props) => {
         return <option value={type.value}
                        key={type.value}>{type.label}</option>
     });
+
+    if (!typesLoaded) {
+        return (
+            <ProgressBar active now={100} />
+        );
+    }
 
     return (
         <FormControl componentClass="select"
@@ -35,7 +42,8 @@ SelectTypeSelector.propTypes = {
     ]),
     allTypes: PropTypes.array.isRequired,
     index: PropTypes.number.isRequired,
-    availableTypes: PropTypes.array.isRequired
+    availableTypes: PropTypes.array.isRequired,
+    typesLoaded: PropTypes.bool.isRequired
 };
 
 export default SelectTypeSelector;

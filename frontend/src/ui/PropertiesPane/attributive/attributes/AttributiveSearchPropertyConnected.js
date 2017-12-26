@@ -1,28 +1,41 @@
 import {connect} from "react-redux";
 import AttributiveSearchProperty from "./AttributiveSearchProperty";
-import {attributeTypeChange} from "../../../../store/query/properties";
+import {attributeTypeChange, attributePropChange} from "../../../../store/query/properties";
 
 const mapStateToProps = (state, ownProps) => {
     const { value } = ownProps;
     return {
         index: value.index,
+
         selectedType: value.selectedType,
         availableTypes: value.availableTypes,
+        typesLoaded: value.typesLoaded,
+        allSelectTypes: state.data.availableTypes,
+
         availableProps: value.availableProps,
         selectedProp: value.selectedProp,
         propsLoaded: value.propsLoaded,
-        allSelectTypes: state.data.availableTypes
+        
+        operationsLoaded: value.operationsLoaded,
+        availableOperations: value.availableOperations,
+        selectedOperaion: value.selectedOperaion
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onSelectTypeChange: (propertyIndex, propertyType) => {
+    onSelectTypeChange: (attributeIndex, propertyType) => {
         dispatch(attributeTypeChange(
-            propertyIndex,
+            attributeIndex,
             propertyType
         ));
     },
-    onPropertyChange: (propertyIndex, propertyType) => {
+    onPropertyChange: (attributeIndex, propertyType) => {
+        dispatch(attributePropChange(
+            attributeIndex, 
+            propertyType
+        ));
+    },
+    onOperationChange: (attributeIndex, propertyType) => {
         debugger;
     }
 });

@@ -1,4 +1,5 @@
 import PropertyValueType from "./PropertyValueType";
+import LogicalOperation from './LogicalOperation';
 
 // this is mock functions
 const getIndex = (properties = []) => {
@@ -16,25 +17,32 @@ const createEmptyAttribute = (properties) => ({
     index: getIndex(properties),
     availableTypes: [],
     availableProps: [],
+    availableOperations: [],
+    typesLoaded: false,
     propsLoaded: false,
+    operationsLoaded: false,
     selectedType: null,
     selectedProp: null,
+    selectedOperation: null,
     value: null
 });
 
 const PropertyService = {};
 
-PropertyService.createAttribute = (selectType, searchTypes, attributes) => {
-    // mock implementation
+PropertyService.createAttribute = (attributes) => {
     return new Promise((resolve) => {
-        // actually we should load only available types here
+        resolve(createEmptyAttribute(attributes));
+    });
+};
+
+PropertyService.getAvailableTypes = (selectType, searchTypes) => {
+    // mock implementation
+    return new Promise(resolve => {
         setTimeout(() => {
-            resolve(Object.assign(
-                createEmptyAttribute(attributes),
-                {
-                    availableTypes: [selectType, 3 - selectType]
-                }
-            ));
+            resolve([
+                +selectType,
+                3 - +selectType
+            ]);
         }, 500);
     });
 };
@@ -68,6 +76,18 @@ PropertyService.getAvailableProperties = (selectedType, searchTypes) => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(props[selectedType]);
+        }, 500);
+    });
+};
+
+PropertyService.getAvailableLogicalOperations = (selectedProp, searchTypes) => {
+    // mock implementation
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve([
+                LogicalOperation.MORE_THAN,
+                LogicalOperation.EQUALS
+            ]);
         }, 500);
     });
 };

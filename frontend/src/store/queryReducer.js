@@ -5,7 +5,8 @@ import {JOIN_TYPE_CHANGE} from "./query/joinType";
 import {SELECT_TYPE_CHANGE} from "./query/selectType";
 import {
     ATTRIBUTES_CLEAR, ATTRIBUTE_ADD, ATTRIBUTE_CREATED, ATTRIBUTE_TYPE_CHANGE,
-    ATTRIBUTE_PROPS_LOADED, ATTRIBUTE_PROP_CHANGE
+    ATTRIBUTE_PROPS_LOADED, ATTRIBUTE_PROP_CHANGE, ATTRIBUTE_TYPES_LOAD, ATTRIBUTE_TYPES_LOADED,
+    ATTRIBUTE_PROPS_LOAD, ATTRIBUTE_OPERATIONS_LOADED
 } from "./query/properties";
 import ArrayUtils from "../utils/ArrayUtils";
 
@@ -56,13 +57,49 @@ const queryReducer = (state = initialState, action) => {
             attributes: state.attributes.concat(action.payload)
         };
 
+        case ATTRIBUTE_TYPES_LOAD: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    typesLoaded: false
+                }
+            )
+        };
+
+        case ATTRIBUTE_TYPES_LOADED: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    typesLoaded: true,
+                    availableTypes: action.payload.types
+                }
+            )
+        };
+
         case ATTRIBUTE_TYPE_CHANGE: return {
             ...state,
             attributes: ArrayUtils.update(
                 state.attributes,
                 attr => attr.index === action.payload.index,
                 {
-                    selectedType: action.payload.selectedType
+                    selectedType: action.payload.selectedType,
+                    propsLoaded: false,
+                    operationsLoaded: false
+                }
+            )
+        };
+
+        case ATTRIBUTE_PROPS_LOAD: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    propsLoaded: false
                 }
             )
         };
@@ -85,7 +122,20 @@ const queryReducer = (state = initialState, action) => {
                 state.attributes,
                 attr => attr.index === action.payload.index,
                 {
-                    selectedProp: action.payload.selectedProp
+                    selectedProp: action.payload.selectedProp,
+                    operationsLoaded: false
+                }
+            )
+        };
+
+        case ATTRIBUTE_OPERATIONS_LOADED: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    operationsLoaded: true,
+                    availableOperations: action.payload.operations
                 }
             )
         };
