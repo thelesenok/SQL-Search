@@ -2,7 +2,7 @@ const ValueType = {};
 
 ValueType.INPUT = {
     value: "input",
-    component: null
+    component: "text"
 };
 ValueType.DATE = {
     value: "date",

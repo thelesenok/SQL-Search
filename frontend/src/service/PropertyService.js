@@ -46,7 +46,7 @@ PropertyService.getAvailableTypes = (selectType, searchTypes) => {
                 +selectType,
                 3 - +selectType
             ]);
-        }, 500);
+        }, 100);
     });
 };
 
@@ -79,7 +79,7 @@ PropertyService.getAvailableProperties = (selectedType, searchTypes) => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(props[selectedType]);
-        }, 500);
+        }, 100);
     });
 };
 
@@ -91,7 +91,7 @@ PropertyService.getAvailableLogicalOperations = (selectedProp, searchTypes) => {
                 LogicalOperation.MORE_THAN,
                 LogicalOperation.EQUALS
             ]);
-        }, 500);
+        }, 100);
     });
 };
 
@@ -100,7 +100,7 @@ PropertyService.getAvailableValueType = (selectedProp, selectedOperation, search
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(ValueType.INPUT);
-        }, 500);
+        }, 100);
     })
 };
 

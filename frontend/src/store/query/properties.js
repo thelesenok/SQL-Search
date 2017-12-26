@@ -42,7 +42,7 @@ export const attributeAdd = () => {
                                 types: types
                             }
                         });
-                        // if there is one or more available types, we can select the firrst
+                        // if there is one or more available types, we can select the first
                         if (types.length > 0) {
                             dispatch(attributeTypeChange(
                                 attribute.index,
@@ -190,7 +190,7 @@ export const attributeOperationChange = (index, selectedOperation) => {
                     type: ATTRIBUTE_VALUE_TYPE_LOADED,
                     payload: {
                         index: index,
-                        valueType: type
+                        valueType: type.component
                     }
                 });
             });
@@ -199,4 +199,14 @@ export const attributeOperationChange = (index, selectedOperation) => {
 
 export const ATTRIBUTE_VALUE_TYPE_LOAD = "attribute_value_type_load";
 export const ATTRIBUTE_VALUE_TYPE_LOADED = "attribute_value_type_loaded";
+export const ATTRIBUTE_VALUE_CHANGE = "attribute_value_change";
 
+export const attributeValueChange = (index, value) => {
+    return {
+        type: ATTRIBUTE_VALUE_CHANGE,
+        payload:  {
+            index: index,
+            value: value
+        }
+    };
+};

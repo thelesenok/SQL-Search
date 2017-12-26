@@ -1,6 +1,12 @@
 import {connect} from "react-redux";
 import AttributiveSearchProperty from "./AttributiveSearchProperty";
-import {attributeTypeChange, attributePropChange, attributeOperationChange, attributeRemove} from "../../../../store/query/properties";
+import {
+    attributeOperationChange,
+    attributePropChange,
+    attributeRemove,
+    attributeTypeChange,
+    attributeValueChange
+} from "../../../../store/query/properties";
 
 const mapStateToProps = (state, ownProps) => {
     const { value } = ownProps;
@@ -21,6 +27,7 @@ const mapStateToProps = (state, ownProps) => {
         selectedOperaion: value.selectedOperaion,
 
         valueTypeLoaded: value.valueTypeLoaded,
+        valueTypeComponent: value.valueType,
 
         attributeRemoveEnabled: value.typesLoaded &&
                 value.propsLoaded &&
@@ -51,6 +58,12 @@ const mapDispatchToProps = (dispatch) => ({
     onAttributeRemove: (attributeIndex) => {
         dispatch(attributeRemove(
             attributeIndex
+        ));
+    },
+    onValueChange: (attributeIndex, value) => {
+        dispatch(attributeValueChange(
+            attributeIndex,
+            value
         ));
     }
 });

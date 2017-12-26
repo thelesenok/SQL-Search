@@ -4,10 +4,20 @@ import {SEARCH_TYPE_ADD, SEARCH_TYPE_REMOVE} from './query/searchType';
 import {JOIN_TYPE_CHANGE} from "./query/joinType";
 import {SELECT_TYPE_CHANGE} from "./query/selectType";
 import {
-    ATTRIBUTES_CLEAR, ATTRIBUTE_ADD, ATTRIBUTE_CREATED, ATTRIBUTE_TYPE_CHANGE,
-    ATTRIBUTE_PROPS_LOADED, ATTRIBUTE_PROP_CHANGE, ATTRIBUTE_TYPES_LOAD, ATTRIBUTE_TYPES_LOADED,
-    ATTRIBUTE_PROPS_LOAD, ATTRIBUTE_OPERATIONS_LOADED, ATTRIBUTE_OPERATION_CHANGE,
-    ATTRIBUTE_VALUE_TYPE_LOAD, ATTRIBUTE_VALUE_TYPE_LOADED, ATTRIBUTE_REMOVE
+    ATTRIBUTE_ADD,
+    ATTRIBUTE_CREATED,
+    ATTRIBUTE_OPERATION_CHANGE,
+    ATTRIBUTE_OPERATIONS_LOADED,
+    ATTRIBUTE_PROP_CHANGE,
+    ATTRIBUTE_PROPS_LOAD,
+    ATTRIBUTE_PROPS_LOADED,
+    ATTRIBUTE_REMOVE,
+    ATTRIBUTE_TYPE_CHANGE,
+    ATTRIBUTE_TYPES_LOAD,
+    ATTRIBUTE_TYPES_LOADED, ATTRIBUTE_VALUE_CHANGE,
+    ATTRIBUTE_VALUE_TYPE_LOAD,
+    ATTRIBUTE_VALUE_TYPE_LOADED,
+    ATTRIBUTES_CLEAR
 } from "./query/properties";
 import ArrayUtils from "../utils/ArrayUtils";
 
@@ -125,7 +135,8 @@ const queryReducer = (state = initialState, action) => {
                 attr => attr.index === action.payload.index,
                 {
                     selectedProp: action.payload.selectedProp,
-                    operationsLoaded: false
+                    operationsLoaded: false,
+                    valueTypeLoaded: false
                 }
             )
         };
@@ -182,6 +193,17 @@ const queryReducer = (state = initialState, action) => {
             attributes: state.attributes.filter(item => {
                 return item.index !== action.payload.index
             })
+        };
+
+        case ATTRIBUTE_VALUE_CHANGE: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    value: action.payload.value
+                }
+            )
         };
 
         case ATTRIBUTES_CLEAR: return {
