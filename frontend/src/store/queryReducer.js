@@ -6,7 +6,8 @@ import {SELECT_TYPE_CHANGE} from "./query/selectType";
 import {
     ATTRIBUTES_CLEAR, ATTRIBUTE_ADD, ATTRIBUTE_CREATED, ATTRIBUTE_TYPE_CHANGE,
     ATTRIBUTE_PROPS_LOADED, ATTRIBUTE_PROP_CHANGE, ATTRIBUTE_TYPES_LOAD, ATTRIBUTE_TYPES_LOADED,
-    ATTRIBUTE_PROPS_LOAD, ATTRIBUTE_OPERATIONS_LOADED
+    ATTRIBUTE_PROPS_LOAD, ATTRIBUTE_OPERATIONS_LOADED, ATTRIBUTE_OPERATION_CHANGE,
+    ATTRIBUTE_VALUE_TYPE_LOAD, ATTRIBUTE_VALUE_TYPE_LOADED, ATTRIBUTE_REMOVE
 } from "./query/properties";
 import ArrayUtils from "../utils/ArrayUtils";
 
@@ -88,7 +89,8 @@ const queryReducer = (state = initialState, action) => {
                 {
                     selectedType: action.payload.selectedType,
                     propsLoaded: false,
-                    operationsLoaded: false
+                    operationsLoaded: false,
+                    valueTypeLoaded: false
                 }
             )
         };
@@ -138,6 +140,48 @@ const queryReducer = (state = initialState, action) => {
                     availableOperations: action.payload.operations
                 }
             )
+        };
+
+        case ATTRIBUTE_OPERATION_CHANGE: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    valueTypeLoaded: false,
+                    selectedOperation: action.payload.selectedOperation
+                }
+            )
+        };
+
+        case ATTRIBUTE_VALUE_TYPE_LOAD: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    valueTypeLoaded: false
+                }
+            )
+        };
+
+        case ATTRIBUTE_VALUE_TYPE_LOADED: return {
+            ...state,
+            attributes: ArrayUtils.update(
+                state.attributes,
+                attr => attr.index === action.payload.index,
+                {
+                    valueTypeLoaded: true,
+                    valueType: action.payload.valueType
+                }
+            )
+        };
+
+        case ATTRIBUTE_REMOVE: return {
+            ...state,
+            attributes: state.attributes.filter(item => {
+                return item.index !== action.payload.index
+            })
         };
 
         case ATTRIBUTES_CLEAR: return {

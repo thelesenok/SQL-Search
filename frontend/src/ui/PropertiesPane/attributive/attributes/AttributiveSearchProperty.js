@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import SelectTypeSelector from "./SelectTypeSelector";
 import PropertySelector from "./PropertySelector";
 import LogicalOperationSelector from './LogicalOperationSelector';
+import ValueInput from './ValueInput';
+import {Button} from "react-bootstrap";
 
 const AttributiveSearchProperty = (props) => {
     return (
@@ -29,6 +31,17 @@ const AttributiveSearchProperty = (props) => {
                                           selectedOperation={props.selectedOperation}
                                           onOperationChange={props.onOperationChange} />
             </td>
+            <td>
+                <ValueInput index={props.index}
+                            valueTypeLoaded={props.valueTypeLoaded} />
+            </td>
+            <td>
+                <Button block 
+                        disabled={!props.attributeRemoveEnabled}
+                        onClick={e => props.onAttributeRemove(props.index)}>
+                    Remove
+                </Button>
+            </td>
         </tr>
     );
 };
@@ -50,7 +63,12 @@ AttributiveSearchProperty.propTypes = {
     onOperationChange: PropTypes.func.isRequired,
     operationsLoaded: PropTypes.bool.isRequired,
     availableOperations: PropTypes.array.isRequired,
-    selectedOperaion: PropTypes.any // todo fix it
+    selectedOperaion: PropTypes.any, // todo fix it,
+
+    valueTypeLoaded: PropTypes.bool.isRequired,
+
+    onAttributeRemove: PropTypes.func.isRequired,
+    attributeRemoveEnabled: PropTypes.bool.isRequired
 };
 
 export default AttributiveSearchProperty;

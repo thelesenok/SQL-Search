@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import AttributiveSearchProperty from "./AttributiveSearchProperty";
-import {attributeTypeChange, attributePropChange} from "../../../../store/query/properties";
+import {attributeTypeChange, attributePropChange, attributeOperationChange, attributeRemove} from "../../../../store/query/properties";
 
 const mapStateToProps = (state, ownProps) => {
     const { value } = ownProps;
@@ -18,25 +18,40 @@ const mapStateToProps = (state, ownProps) => {
         
         operationsLoaded: value.operationsLoaded,
         availableOperations: value.availableOperations,
-        selectedOperaion: value.selectedOperaion
+        selectedOperaion: value.selectedOperaion,
+
+        valueTypeLoaded: value.valueTypeLoaded,
+
+        attributeRemoveEnabled: value.typesLoaded &&
+                value.propsLoaded &&
+                value.operationsLoaded &&
+                value.valueTypeLoaded
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    onSelectTypeChange: (attributeIndex, propertyType) => {
+    onSelectTypeChange: (attributeIndex, selectedType) => {
         dispatch(attributeTypeChange(
             attributeIndex,
-            propertyType
+            selectedType
         ));
     },
-    onPropertyChange: (attributeIndex, propertyType) => {
+    onPropertyChange: (attributeIndex, selectedProperty) => {
         dispatch(attributePropChange(
             attributeIndex, 
-            propertyType
+            selectedProperty
         ));
     },
-    onOperationChange: (attributeIndex, propertyType) => {
-        debugger;
+    onOperationChange: (attributeIndex, selectedOperaion) => {
+        dispatch(attributeOperationChange(
+            attributeIndex,
+            selectedOperaion
+        ));
+    },
+    onAttributeRemove: (attributeIndex) => {
+        dispatch(attributeRemove(
+            attributeIndex
+        ));
     }
 });
 

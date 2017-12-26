@@ -1,5 +1,6 @@
 import PropertyValueType from "./PropertyValueType";
 import LogicalOperation from './LogicalOperation';
+import ValueType from './ValueType';
 
 // this is mock functions
 const getIndex = (properties = []) => {
@@ -21,6 +22,8 @@ const createEmptyAttribute = (properties) => ({
     typesLoaded: false,
     propsLoaded: false,
     operationsLoaded: false,
+    valueTypeLoaded: false,
+    valueType: null,
     selectedType: null,
     selectedProp: null,
     selectedOperation: null,
@@ -90,6 +93,15 @@ PropertyService.getAvailableLogicalOperations = (selectedProp, searchTypes) => {
             ]);
         }, 500);
     });
+};
+
+PropertyService.getAvailableValueType = (selectedProp, selectedOperation, searchTypes) => {
+    // mock implementation
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(ValueType.INPUT);
+        }, 500);
+    })
 };
 
 export default PropertyService;

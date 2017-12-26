@@ -2,6 +2,7 @@ import PropertyService from "../../service/PropertyService";
 
 export const ATTRIBUTE_ADD = "property_add";
 export const ATTRIBUTE_CREATED = "property_created";
+export const ATTRIBUTE_REMOVE = "attribute_remove";
 export const ATTRIBUTES_CLEAR = "properties_clear";
 
 export const ATTRIBUTE_TYPES_LOAD = "attribute_types_load";
@@ -53,10 +54,22 @@ export const attributeAdd = () => {
     };
 };
 
+export const attributeRemove = (index) => {
+    return {
+        type: ATTRIBUTE_REMOVE,
+        payload: {
+            index: index
+        }
+    };
+};
+
+export const propertiesClear = () => {
+    return {
+        type: ATTRIBUTES_CLEAR
+    };
+};
+
 export const ATTRIBUTE_TYPE_CHANGE = "property_type_change";
-export const ATTRIBUTE_PROP_CHANGE = "attribute_prop_change";
-export const ATTRIBUTE_PROPS_LOAD = "attribute_props_load";
-export const ATTRIBUTE_PROPS_LOADED = "attribute_props_loaded";
 
 export const attributeTypeChange = (index, selectedType) => {
     return (dispatch, getState) => {
@@ -99,8 +112,9 @@ export const attributeTypeChange = (index, selectedType) => {
     };
 };
 
-export const ATTRIBUTE_OPERATIONS_LOAD = "attribute_operations_load";
-export const ATTRIBUTE_OPERATIONS_LOADED = "attribute_operations_loaded";
+export const ATTRIBUTE_PROP_CHANGE = "attribute_prop_change";
+export const ATTRIBUTE_PROPS_LOAD = "attribute_props_load";
+export const ATTRIBUTE_PROPS_LOADED = "attribute_props_loaded";
 
 export const attributePropChange = (index, selectedProp) => {
     return (dispatch, getState) => {
@@ -131,12 +145,58 @@ export const attributePropChange = (index, selectedProp) => {
                         operations: operations
                     }
                 });
+                // if there is more than zero operations, select first
+                if (operations.length > 0) {
+                    dispatch(attributeOperationChange(
+                        index,
+                        operations[0].value
+                    ));
+                }
             });
     }
 };
 
-export const propertiesClear = () => {
-    return {
-        type: ATTRIBUTES_CLEAR
-    };
+export const ATTRIBUTE_OPERATIONS_LOAD = "attribute_operations_load";
+export const ATTRIBUTE_OPERATIONS_LOADED = "attribute_operations_loaded";
+export const ATTRIBUTE_OPERATION_CHANGE = "attribute_operation_change";
+
+export const attributeOperationChange = (index, selectedOperation) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: ATTRIBUTE_OPERATION_CHANGE,
+            payload: {
+                index: index,
+                selectedOperation: selectedOperation
+            }
+        });
+        // load available value type
+        const state = getState();
+        const {
+            searchTypes,
+            attributes
+        } = state.query;
+        dispatch({
+            type: ATTRIBUTE_VALUE_TYPE_LOAD,
+            payload: {
+                index: index
+            }
+        });
+        const selectedProp = attributes.find(attr => {
+            return attr.index === index
+        }).selectedProp;
+        PropertyService.getAvailableValueType(selectedProp, selectedOperation, searchTypes)
+            .then(type => {
+                dispatch({
+                    type: ATTRIBUTE_VALUE_TYPE_LOADED,
+                    payload: {
+                        index: index,
+                        valueType: type
+                    }
+                });
+            });
+    }
 };
+
+export const ATTRIBUTE_VALUE_TYPE_LOAD = "attribute_value_type_load";
+export const ATTRIBUTE_VALUE_TYPE_LOADED = "attribute_value_type_loaded";
+
