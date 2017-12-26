@@ -3,6 +3,7 @@ import dataReducer from "./dataReducer";
 import thunkMiddleware from 'redux-thunk';
 import queryReducer from "./queryReducer";
 import {composeWithDevTools} from "redux-devtools-extension";
+import searchReducer from "./searchReducer";
 
 const middleware = applyMiddleware(
     thunkMiddleware
@@ -10,7 +11,8 @@ const middleware = applyMiddleware(
 
 const rootReducer = combineReducers({
     data: dataReducer,
-    query: queryReducer
+    query: queryReducer,
+    search: searchReducer
 });
 
 const store = createStore(

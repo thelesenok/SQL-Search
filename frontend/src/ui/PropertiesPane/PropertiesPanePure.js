@@ -4,6 +4,7 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import SearchType from '../../service/SearchType';
 import PropertiesPaneAttributive from "./attributive/PropertiesPaneAttributive";
+import PropertiesPaneFuzzyConnected from "./fuzzy/pane/PropertiesPaneFuzzyConnected";
 
 const PropertiesPanePure = (props) => {
     const { selectedSearchTypes } = props;
@@ -19,10 +20,11 @@ const PropertiesPanePure = (props) => {
                 <PropertiesPaneAttributive />
             </Tab>
             
-            <Tab title="Fuzzy smth" 
+            <Tab title="Fuzzy like lookup"
                     disabled={selectedSearchTypes.indexOf(SearchType.FUZZY) === -1}
                     eventKey={SearchType.FUZZY}>
-                1111
+
+                <PropertiesPaneFuzzyConnected />
             </Tab>
         </Tabs>
     );

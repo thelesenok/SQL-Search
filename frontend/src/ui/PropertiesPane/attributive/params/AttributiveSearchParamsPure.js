@@ -18,13 +18,15 @@ const AttributiveSearchParamsPure = (props) => {
         onJoinTypeChange,
         onPropertyAdd,
         onPropertiesClear,
-        propertyCreationAvailable
+        propertyCreationAvailable,
+        onSearchStart,
+        searchInProgress
     } = props;
 
     return (
         <Grid>
             <Row>
-                <Col xs={3}>
+                <Col xs={2}>
                     <Radio name="joinType"
                            checked={joinType === JoinType.AND}
                            onChange={e => onJoinTypeChange(JoinType.AND)}
@@ -42,16 +44,24 @@ const AttributiveSearchParamsPure = (props) => {
                     <TypeSelector onTypeChange={onSelectTypeChange}
                                   availableTypes={availableTypes}/>
                 </Col>
-                <Col xs={3}>
+                <Col xs={2}>
                     <Button block
                             disabled={!propertyCreationAvailable}
                             onClick={onPropertyAdd}>
                         +
                     </Button>
                 </Col>
-                <Col xs={3}>
+                <Col xs={2}>
                     <Button block onClick={onPropertiesClear}>
-                        Clear all conditions
+                        Clear
+                    </Button>
+                </Col>
+                <Col xs={3}>
+                    <Button block
+                            bsStyle="primary"
+                            disabled={searchInProgress}
+                            onClick={onSearchStart}>
+                        Search
                     </Button>
                 </Col>
             </Row>
@@ -71,6 +81,8 @@ AttributiveSearchParamsPure.propTypes = {
 
     onPropertyAdd: PropTypes.func.isRequired,
     onPropertiesClear: PropTypes.func.isRequired,
+    onSearchStart: PropTypes.func.isRequired,
+    searchInProgress: PropTypes.bool.isRequired,
 
     propertyCreationAvailable: PropTypes.bool.isRequired
 };

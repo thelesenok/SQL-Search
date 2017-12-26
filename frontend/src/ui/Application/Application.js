@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Col, Grid, Row} from "react-bootstrap";
 import SearchTypeSelector from "../SearchTypeSelector/SearchTypeSelector";
 import PropertiesPane from "../PropertiesPane/PropertiesPane";
-import ResultsPane from "../ResultsPane/ResultsPane";
+import ResultsPaneConnected from "../ResultsPane/ResultsPaneConnected";
 
 class Application extends Component {
     componentDidMount = () => {
@@ -25,7 +25,7 @@ class Application extends Component {
                 </Row>
                 <Row>
                     <Col xs={12}>
-                        <ResultsPane />
+                        <ResultsPaneConnected />
                     </Col>
                 </Row>
             </Grid>

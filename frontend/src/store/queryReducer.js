@@ -20,14 +20,16 @@ import {
     ATTRIBUTES_CLEAR
 } from "./query/properties";
 import ArrayUtils from "../utils/ArrayUtils";
+import {FUZZY_LIKE_MASK_CHANGE} from "./query/fuzzyLike";
 
 const initialState = {
     joinType: JoinType.AND,
     searchTypes: [
         SearchType.ATTRIBUTIVE
     ],
-    selectType: undefined,
+    selectType: null,
     attributes: [],
+    fuzzyMaskSize: 2,
 
     propertyCreationAvailable: true
 };
@@ -36,14 +38,16 @@ const queryReducer = (state = initialState, action) => {
     switch (action.type) {
         case SEARCH_TYPE_ADD: return {
             ...state,
-            searchTypes: state.searchTypes.concat(action.payload)
+            searchTypes: state.searchTypes.concat(action.payload),
+            attributes: []
         };
 
         case SEARCH_TYPE_REMOVE: return {
             ...state,
             searchTypes: state.searchTypes.filter(item => {
                 return item !== action.payload
-            })
+            }),
+            attributes: []
         };
 
         case SELECT_TYPE_CHANGE: return {
@@ -209,6 +213,11 @@ const queryReducer = (state = initialState, action) => {
         case ATTRIBUTES_CLEAR: return {
             ...state,
             attributes: []
+        };
+
+        case FUZZY_LIKE_MASK_CHANGE: return {
+            ...state,
+            fuzzyMaskSize: action.payload
         };
 
         default: return state;
