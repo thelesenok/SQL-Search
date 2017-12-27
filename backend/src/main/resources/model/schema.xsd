@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="definition" type="modelDefinition"/>
+
+  <xs:complexType name="modelDefinition">
+    <xs:sequence>
+      <xs:element name="type" type="typeDefinition" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="typeDefinition">
+    <xs:all>
+      <xs:element name="type" type="xs:string"/>
+      <xs:element name="table" type="xs:string"/>
+      <xs:element name="properties" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="property" type="propertyDefinition" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="propertyDefinition">
+    <xs:all>
+      <xs:element name="property" type="xs:string"/>
+      <xs:element name="column" type="xs:string"/>
+      <xs:element name="type" type="propertyType" minOccurs="0"/>
+      <xs:element name="display-property" type="xs:boolean"/>
+      <xs:element name="reference" type="typeReference" minOccurs="0"/>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="typeReference">
+    <xs:sequence>
+      <xs:element name="type" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="propertyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REFERENCE"/>
+      <xs:enumeration value="STRING"/>
+      <xs:enumeration value="NUMBER"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

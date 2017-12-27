@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
+    <type>
+        <type>project</type>
+        <table>PROJECTS</table>
+        <properties>
+            <property>
+                <property>string-property-name</property>
+                <type>STRING</type>
+                <column>STRING_COLUMN</column>
+                <display-property>false</display-property>
+                <reference>
+                    <type>user</type>
+                </reference>
+            </property>
+        </properties>
+    </type>
+</definition>
