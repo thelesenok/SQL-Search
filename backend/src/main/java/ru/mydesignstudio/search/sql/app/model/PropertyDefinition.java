@@ -77,4 +77,24 @@ public class PropertyDefinition {
     public void setTypeReference(TypeReference typeReference) {
         this.typeReference = typeReference;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PropertyDefinition that = (PropertyDefinition) o;
+
+        if (!getPropertyName().equals(that.getPropertyName())) return false;
+        if (!getPropertyColumn().equals(that.getPropertyColumn())) return false;
+        return getPropertyType() == that.getPropertyType();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getPropertyName().hashCode();
+        result = 31 * result + getPropertyColumn().hashCode();
+        result = 31 * result + getPropertyType().hashCode();
+        return result;
+    }
 }

@@ -7,5 +7,23 @@ public enum PropertyValueType {
     /**
      * String property.
      */
-    STRING;
+    STRING("string"),
+    /**
+     * Number property.
+     */
+    NUMBER("number"),
+    /**
+     * Reference property.
+     */
+    REFERENCE("reference");
+
+    private final String value;
+
+    PropertyValueType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

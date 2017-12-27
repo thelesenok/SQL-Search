@@ -3,7 +3,7 @@ package ru.mydesignstudio.search.sql.app.rest.model;
 /**
  * Property response model.
  */
-public class PropertyModel {
+public class PropertyResponse {
     /**
      * Type of property.
      */
