@@ -128,7 +128,8 @@ export const attributePropChange = (index, selectedProp) => {
         // load available property logical operations
         const state = getState();
         const {
-            searchTypes
+            searchTypes,
+            attributes
         } = state.query;
         dispatch({
             type: ATTRIBUTE_OPERATIONS_LOAD,
@@ -136,7 +137,10 @@ export const attributePropChange = (index, selectedProp) => {
                 index: index
             }
         });
-        PropertyService.getAvailableLogicalOperations(selectedProp, searchTypes)
+        const selectedType = attributes.find(attr => {
+            return attr.index === index;
+        }).selectedType;
+        PropertyService.getAvailableLogicalOperations(selectedType, selectedProp, searchTypes)
             .then(operations => {
                 dispatch({
                     type: ATTRIBUTE_OPERATIONS_LOADED,

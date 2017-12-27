@@ -1,17 +1,15 @@
-package ru.mydesignstudio.search.sql.app.service;
+package ru.mydesignstudio.search.sql.app.service.model;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.mydesignstudio.search.sql.app.model.ModelDefinition;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
-import ru.mydesignstudio.search.sql.app.model.PropertyType;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
-import ru.mydesignstudio.search.sql.app.model.TypeReference;
+import ru.mydesignstudio.search.sql.app.service.model.definition.reader.ModelDefinitionReader;
+import ru.mydesignstudio.search.sql.app.utils.Validations;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
@@ -37,12 +35,28 @@ public class ModelServiceImpl implements ModelService {
 
     @Override
     public TypeDefinition findType(String typeName) {
+        Validations.assertTrue(StringUtils.isNoneBlank(typeName), "Type name not provided");
+
         return getModel().getTypes().stream()
                 .filter(type -> typeName.equalsIgnoreCase(type.getTypeName()))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException(String.format(
                         "Can't find type by name %s",
                         typeName
+                )));
+    }
+
+    @Override
+    public PropertyDefinition findProperty(TypeDefinition typeDefinition, String propertyName) {
+        Validations.assertNotNull(typeDefinition, "Type definition not provided");
+        Validations.assertNotNull(StringUtils.isNoneBlank(propertyName), "Property name not provided");
+
+        return typeDefinition.getProperties().stream()
+                .filter(prop -> propertyName.equalsIgnoreCase(prop.getPropertyName()))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(String.format(
+                        "Can't find property by name %s",
+                        propertyName
                 )));
     }
 }

@@ -1,4 +1,6 @@
-package ru.mydesignstudio.search.sql.app.rest.model;
+package ru.mydesignstudio.search.sql.app.rest.model.response;
+
+import ru.mydesignstudio.search.sql.app.model.PropertyType;
 
 /**
  * Property response model.
@@ -7,7 +9,7 @@ public class PropertyResponse {
     /**
      * Type of property.
      */
-    private PropertyValueType valueType;
+    private PropertyType valueType;
     /**
      * Name of property, label for field.
      */
@@ -17,11 +19,11 @@ public class PropertyResponse {
      */
     private String value;
 
-    public PropertyValueType getValueType() {
+    public PropertyType getValueType() {
         return valueType;
     }
 
-    public void setValueType(PropertyValueType valueType) {
+    public void setValueType(PropertyType valueType) {
         this.valueType = valueType;
     }
 

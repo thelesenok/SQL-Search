@@ -1,4 +1,4 @@
-package ru.mydesignstudio.search.sql.app.rest.model;
+package ru.mydesignstudio.search.sql.app.rest.model.request;
 
 import ru.mydesignstudio.search.sql.app.service.SearchType;
 
@@ -8,18 +8,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Model class for type's property request.
+ * Model class for operations request.
  */
-public class TypePropertyRequest {
-    /**
-     * Requested type.
-     */
+public class PropertyOperationsRequest {
     @NotNull
     @Size(min = 1)
     private String requestedType;
-    /**
-     * Search types.
-     */
+    @NotNull
+    @Size(min = 1)
+    private String requestedProp;
     @NotNull
     @Size(min = 1)
     private Collection<SearchType> searchTypes = new ArrayList<>();
@@ -30,6 +27,14 @@ public class TypePropertyRequest {
 
     public void setRequestedType(String requestedType) {
         this.requestedType = requestedType;
+    }
+
+    public String getRequestedProp() {
+        return requestedProp;
+    }
+
+    public void setRequestedProp(String requestedProp) {
+        this.requestedProp = requestedProp;
     }
 
     public Collection<SearchType> getSearchTypes() {

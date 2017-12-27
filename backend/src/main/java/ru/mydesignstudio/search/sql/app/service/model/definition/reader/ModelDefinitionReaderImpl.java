@@ -1,4 +1,4 @@
-package ru.mydesignstudio.search.sql.app.service;
+package ru.mydesignstudio.search.sql.app.service.model.definition.reader;
 
 import org.springframework.stereotype.Component;
 import ru.mydesignstudio.search.sql.app.model.ModelDefinition;

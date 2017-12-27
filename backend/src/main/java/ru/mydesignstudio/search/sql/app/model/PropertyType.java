@@ -11,13 +11,23 @@ public enum PropertyType {
     /**
      * Reference type.
      */
-    REFERENCE,
+    REFERENCE("reference"),
     /**
      * String type.
      */
-    STRING,
+    STRING("string"),
     /**
      * Number type.
      */
-    NUMBER;
+    NUMBER("number");
+
+    private final String type;
+
+    PropertyType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

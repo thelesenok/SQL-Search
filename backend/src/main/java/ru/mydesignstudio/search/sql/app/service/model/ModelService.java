@@ -1,4 +1,4 @@
-package ru.mydesignstudio.search.sql.app.service;
+package ru.mydesignstudio.search.sql.app.service.model;
 
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
@@ -20,4 +20,13 @@ public interface ModelService {
      * @return type definition
      */
     TypeDefinition findType(String typeName);
+
+    /**
+     * Finds property by name.
+     *
+     * @param typeDefinition type definition
+     * @param propertyName property name
+     * @return property definition
+     */
+    PropertyDefinition findProperty(TypeDefinition typeDefinition, String propertyName);
 }

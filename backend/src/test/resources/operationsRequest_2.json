@@ -1,0 +1,8 @@
+{
+  "requestedType": "project",
+  "requestedProp": "string-property",
+  "searchTypes": [
+    "attributive",
+    "relational"
+  ]
+}

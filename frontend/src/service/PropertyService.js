@@ -83,7 +83,7 @@ PropertyService.getAvailableProperties = (selectedType, searchTypes) => {
     });
 };
 
-PropertyService.getAvailableLogicalOperations = (selectedProp, searchTypes) => {
+PropertyService.getAvailableLogicalOperations = (selectedType, selectedProp, searchTypes) => {
     // mock implementation
     return new Promise(resolve => {
         setTimeout(() => {

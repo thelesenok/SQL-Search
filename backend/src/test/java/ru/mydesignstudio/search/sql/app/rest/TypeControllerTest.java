@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
 import ru.mydesignstudio.search.sql.app.utils.JsonRequestReader;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -72,5 +73,63 @@ public class TypeControllerTest {
                 .andExpect(jsonPath("$[0].label").value("string-property"))
                 .andExpect(jsonPath("$[0].value").value("STRING_COLUMN"))
                 .andExpect(jsonPath("$[0].valueType").value("string"));
+    }
+
+    @Test
+    public void findOperationsForAttributiveSearch() throws Exception {
+        final String requestString = JsonRequestReader.readFromFile("operationsRequest_1.json");
+        mvc.perform(
+                post("/types/operations")
+                        .content(requestString)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(4))
+                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()));
+    }
+
+    @Test
+    public void findOperationsForRelationalSearch() throws Exception {
+        final String requestString = JsonRequestReader.readFromFile("operationsRequest_2.json");
+        mvc.perform(
+                post("/types/operations")
+                        .content(requestString)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(4))
+                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()));
+    }
+
+    @Test
+    public void findOperationsForFuzzySearch() throws Exception {
+        final String requestString = JsonRequestReader.readFromFile("operationsRequest_3.json");
+        mvc.perform(
+                post("/types/operations")
+                        .content(requestString)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(5))
+                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()))
+                .andExpect(jsonPath("$[4]").value(LogicalOperation.FUZZY_LIKE.getValue()));
     }
 }
