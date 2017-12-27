@@ -16,7 +16,8 @@ public enum LogicalOperation {
     MORE_OR_EQUALS("more_or_equals"),
     LESS_OR_EQUALS("less_or_equals"),
     AND("and"),
-    OR("or");
+    OR("or"),
+    UNDEFINED("undefined");
 
     private final String value;
 
@@ -26,5 +27,14 @@ public enum LogicalOperation {
 
     public String getValue() {
         return value;
+    }
+
+    public static final LogicalOperation byValue(final String value) {
+        for (LogicalOperation operation : LogicalOperation.values()) {
+            if (value.equalsIgnoreCase(operation.getValue())) {
+                return operation;
+            }
+        }
+        return LogicalOperation.UNDEFINED;
     }
 }

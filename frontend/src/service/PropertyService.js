@@ -95,7 +95,7 @@ PropertyService.getAvailableLogicalOperations = (selectedType, selectedProp, sea
     });
 };
 
-PropertyService.getAvailableValueType = (selectedProp, selectedOperation, searchTypes) => {
+PropertyService.getAvailableValueType = (selectedType, selectedProp, selectedOperation, searchTypes) => {
     // mock implementation
     return new Promise(resolve => {
         setTimeout(() => {

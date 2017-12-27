@@ -1,0 +1,8 @@
+{
+  "requestedType": "project",
+  "requestedProp": "number-property",
+  "requestedOperation": "equals",
+  "searchTypes": [
+    "attributive"
+  ]
+}

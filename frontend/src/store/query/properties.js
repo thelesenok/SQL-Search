@@ -188,7 +188,10 @@ export const attributeOperationChange = (index, selectedOperation) => {
         const selectedProp = attributes.find(attr => {
             return attr.index === index
         }).selectedProp;
-        PropertyService.getAvailableValueType(selectedProp, selectedOperation, searchTypes)
+        const selectedType = attributes.find(attr => {
+            return attr.index === index;
+        }).selectedType;
+        PropertyService.getAvailableValueType(selectedType, selectedProp, selectedOperation, searchTypes)
             .then(type => {
                 dispatch({
                     type: ATTRIBUTE_VALUE_TYPE_LOADED,

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
+import ru.mydesignstudio.search.sql.app.rest.model.request.ControlTypeRequest;
 import ru.mydesignstudio.search.sql.app.rest.model.request.PropertyOperationsRequest;
 import ru.mydesignstudio.search.sql.app.rest.model.request.TypePropertiesRequest;
 import ru.mydesignstudio.search.sql.app.rest.model.response.PropertyResponse;
+import ru.mydesignstudio.search.sql.app.rest.transformer.ControlTypeTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.OperationTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.PropertyTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.TypeTransformer;
@@ -19,6 +21,8 @@ import ru.mydesignstudio.search.sql.app.service.model.ModelService;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
 import ru.mydesignstudio.search.sql.app.service.operation.PropertyOperationsFinder;
 import ru.mydesignstudio.search.sql.app.service.property.PropertyDefinitionFinder;
+import ru.mydesignstudio.search.sql.app.service.value.ControlType;
+import ru.mydesignstudio.search.sql.app.service.value.ControlTypeFinder;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -33,11 +37,15 @@ public class TypeController {
     @Autowired
     private PropertyOperationsFinder propertyOperationsFinder;
     @Autowired
+    private ControlTypeFinder controlTypeFinder;
+    @Autowired
     private TypeTransformer typeTransformer;
     @Autowired
     private PropertyTransformer propertyTransformer;
     @Autowired
     private OperationTransformer operationTransformer;
+    @Autowired
+    private ControlTypeTransformer controlTypeTransformer;
 
     @GetMapping
     public Collection<String> findAllTypes() {
@@ -66,5 +74,18 @@ public class TypeController {
         return operations.stream()
                 .map(operationTransformer::transform)
                 .collect(Collectors.toList());
+    }
+
+    @PostMapping(value = "/control")
+    public String findControlType(@RequestBody @Validated ControlTypeRequest request) {
+        final TypeDefinition requestedType = modelService.findType(request.getRequestedType());
+        final PropertyDefinition property = modelService.findProperty(requestedType, request.getRequestedProp());
+        final ControlType controlType = controlTypeFinder.findControlType(
+                requestedType,
+                property,
+                request.getRequestedOperation(),
+                request.getSearchTypes()
+        );
+        return controlTypeTransformer.transform(controlType);
     }
 }

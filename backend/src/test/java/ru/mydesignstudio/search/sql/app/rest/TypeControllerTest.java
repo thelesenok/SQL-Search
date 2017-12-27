@@ -10,6 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
+import ru.mydesignstudio.search.sql.app.service.value.ControlType;
 import ru.mydesignstudio.search.sql.app.utils.JsonRequestReader;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -131,5 +132,20 @@ public class TypeControllerTest {
                 .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
                 .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()))
                 .andExpect(jsonPath("$[4]").value(LogicalOperation.FUZZY_LIKE.getValue()));
+    }
+
+    @Test
+    public void findControlType() throws Exception {
+        final String requestString = JsonRequestReader.readFromFile("controlTypeRequest_1.json");
+        mvc.perform(
+                post("/types/control")
+                        .content(requestString)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().string(ControlType.TEXT_FIELD.getType()))
+                .andDo(handler -> System.out.println(handler.getResponse().getContentAsString()));
     }
 }
