@@ -53,4 +53,22 @@ public class TypeDefinition {
 	public void setProperties(Collection<PropertyDefinition> properties) {
 		this.properties = properties;
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TypeDefinition that = (TypeDefinition) o;
+
+        if (!typeName.equals(that.typeName)) return false;
+        return tableName.equals(that.tableName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = typeName.hashCode();
+        result = 31 * result + tableName.hashCode();
+        return result;
+    }
 }

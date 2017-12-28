@@ -9,20 +9,23 @@
                 <property>string-property</property>
                 <column>STRING_COLUMN</column>
                 <display-property>false</display-property>
+                <primary-key>false</primary-key>
             </property>
             <property>
                 <type>NUMBER</type>
                 <property>number-property</property>
                 <column>NUMBER_COLUMN</column>
                 <display-property>false</display-property>
+                <primary-key>false</primary-key>
             </property>
             <property>
                 <type>REFERENCE</type>
                 <property>reference-property</property>
                 <column>FOREIGN_COLUMN</column>
                 <display-property>false</display-property>
+                <primary-key>false</primary-key>
                 <reference>
-                    <type>executor</type>
+                    <type>EXECUTORS</type>
                 </reference>
             </property>
         </properties>
@@ -30,6 +33,20 @@
     <type>
         <type>executor</type>
         <table>EXECUTORS</table>
+        <properties>
+            <property>
+                <property>PK</property>
+                <column>EXECUTORS_ID</column>
+                <display-property>false</display-property>
+                <primary-key>true</primary-key>
+            </property>
+            <property>
+                <primary-key>false</primary-key>
+                <property>executor_name</property>
+                <column>EXECUTOR_FULL_NAME</column>
+                <display-property>true</display-property>
+            </property>
+        </properties>
     </type>
     <type>
         <type>stage</type>

@@ -30,8 +30,13 @@ public class PropertyDefinition {
     /**
      * Is property can be used in lookup.
      */
-    @XmlElement(name = "display-property")
+    @XmlElement(name = "display-property", defaultValue = "false")
 	private boolean isDisplayProperty = false;
+    /**
+     * Is element primary key.
+     */
+    @XmlElement(name = "primary-key", required = false, defaultValue = "false")
+    private boolean isPrimaryKey = false;
     /**
      * It {propertyType} is {REFERENCE}, this is a reference to other type.
      */
@@ -76,6 +81,14 @@ public class PropertyDefinition {
 
     public void setTypeReference(TypeReference typeReference) {
         this.typeReference = typeReference;
+    }
+
+    public boolean isPrimaryKey() {
+        return isPrimaryKey;
+    }
+
+    public void setPrimaryKey(boolean primaryKey) {
+        isPrimaryKey = primaryKey;
     }
 
     @Override

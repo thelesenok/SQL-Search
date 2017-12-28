@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.mydesignstudio.search.sql.app.model.ModelDefinition;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
+import ru.mydesignstudio.search.sql.app.model.PropertyType;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
 import ru.mydesignstudio.search.sql.app.service.model.definition.reader.ModelDefinitionReader;
 import ru.mydesignstudio.search.sql.app.utils.Validations;
@@ -57,6 +58,48 @@ public class ModelServiceImpl implements ModelService {
                 .orElseThrow(() -> new RuntimeException(String.format(
                         "Can't find property by name %s",
                         propertyName
+                )));
+    }
+
+    @Override
+    public PropertyDefinition findDisplayProperty(TypeDefinition typeDefinition) {
+        Validations.assertNotNull(typeDefinition, "Type definition wasn't provided");
+
+        return typeDefinition.getProperties().stream()
+                .filter(prop -> prop.isDisplayProperty())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(String.format(
+                        "Type %s has no display property",
+                        typeDefinition.getTypeName()
+                )));
+    }
+
+    @Override
+    public PropertyDefinition findPrimaryKeyProperty(TypeDefinition typeDefinition) {
+        Validations.assertNotNull(typeDefinition, "Type definition wasn't provided");
+
+        return typeDefinition.getProperties().stream()
+                .filter(prop -> prop.isPrimaryKey())
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(String.format(
+                        "Type %s has no primary key property",
+                        typeDefinition.getTypeName()
+                )));
+    }
+
+    @Override
+    public PropertyDefinition findRelationProperty(TypeDefinition sourceType, TypeDefinition targetType) {
+        Validations.assertNotNull(sourceType, "Source type wasn't provided");
+        Validations.assertNotNull(targetType, "Target type definition wasn't provided");
+
+        return sourceType.getProperties().stream()
+                .filter(prop -> PropertyType.REFERENCE.equals(prop.getPropertyType()))
+                .filter(prop -> findType(prop.getTypeReference().getReferenceType()).equals(targetType))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException(String.format(
+                        "There is no relation property for types %s and %s",
+                        sourceType,
+                        targetType
                 )));
     }
 }

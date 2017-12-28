@@ -29,4 +29,29 @@ public interface ModelService {
      * @return property definition
      */
     PropertyDefinition findProperty(TypeDefinition typeDefinition, String propertyName);
+
+    /**
+     * Find display property for provided type.
+     *
+     * @param typeDefinition type definition
+     * @return display property
+     */
+    PropertyDefinition findDisplayProperty(TypeDefinition typeDefinition);
+
+    /**
+     * Find type primary key property.
+     *
+     * @param typeDefinition type definition
+     * @return primary key property
+     */
+    PropertyDefinition findPrimaryKeyProperty(TypeDefinition typeDefinition);
+
+    /**
+     * Find property that connects to types.
+     *
+     * @param sourceType from type
+     * @param targetType target type
+     * @return connection property
+     */
+    PropertyDefinition findRelationProperty(TypeDefinition sourceType, TypeDefinition targetType);
 }

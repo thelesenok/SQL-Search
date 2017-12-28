@@ -19,12 +19,25 @@ public enum PropertyType {
     /**
      * Number type.
      */
-    NUMBER("number");
+    NUMBER("number"),
+    /**
+     * Undefined type.
+     */
+    UNDEFINED("undefined");
 
     private final String type;
 
     PropertyType(String type) {
         this.type = type;
+    }
+
+    public static final PropertyType byType(final String type) {
+        for (PropertyType propertyType : PropertyType.values()) {
+            if (type.equalsIgnoreCase(propertyType.getType())) {
+                return propertyType;
+            }
+        }
+        return UNDEFINED;
     }
 
     public String getType() {

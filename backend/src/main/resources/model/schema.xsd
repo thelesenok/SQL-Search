@@ -28,7 +28,8 @@
       <xs:element name="property" type="xs:string"/>
       <xs:element name="column" type="xs:string"/>
       <xs:element name="type" type="propertyType" minOccurs="0"/>
-      <xs:element name="display-property" type="xs:boolean"/>
+      <xs:element name="display-property" type="xs:boolean" default="false"/>
+      <xs:element name="primary-key" type="xs:boolean" default="false"/>
       <xs:element name="reference" type="typeReference" minOccurs="0"/>
     </xs:all>
   </xs:complexType>
