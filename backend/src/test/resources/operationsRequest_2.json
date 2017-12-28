@@ -1,6 +1,6 @@
 {
-  "requestedType": "project",
-  "requestedProp": "string-property",
+  "requestedType": "PROJECTS",
+  "requestedProp": "STRING_COLUMN",
   "searchTypes": [
     "attributive",
     "relational"

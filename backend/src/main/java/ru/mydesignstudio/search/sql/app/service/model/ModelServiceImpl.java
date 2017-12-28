@@ -38,7 +38,7 @@ public class ModelServiceImpl implements ModelService {
         Validations.assertTrue(StringUtils.isNoneBlank(typeName), "Type name not provided");
 
         return getModel().getTypes().stream()
-                .filter(type -> typeName.equalsIgnoreCase(type.getTypeName()))
+                .filter(type -> typeName.equalsIgnoreCase(type.getTableName()))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException(String.format(
                         "Can't find type by name %s",
@@ -52,7 +52,7 @@ public class ModelServiceImpl implements ModelService {
         Validations.assertNotNull(StringUtils.isNoneBlank(propertyName), "Property name not provided");
 
         return typeDefinition.getProperties().stream()
-                .filter(prop -> propertyName.equalsIgnoreCase(prop.getPropertyName()))
+                .filter(prop -> propertyName.equalsIgnoreCase(prop.getPropertyColumn()))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException(String.format(
                         "Can't find property by name %s",

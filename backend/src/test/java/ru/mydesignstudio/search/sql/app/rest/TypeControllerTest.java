@@ -10,7 +10,6 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
-import ru.mydesignstudio.search.sql.app.service.value.ControlType;
 import ru.mydesignstudio.search.sql.app.utils.JsonRequestReader;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,9 +34,9 @@ public class TypeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[0]").value("project"))
-                .andExpect(jsonPath("$[1]").value("executor"))
-                .andExpect(jsonPath("$[2]").value("stage"));
+                .andExpect(jsonPath("$[0].value").value("PROJECTS"))
+                .andExpect(jsonPath("$[1].value").value("EXECUTORS"))
+                .andExpect(jsonPath("$[2].value").value("STAGES"));
     }
 
     @Test
@@ -89,10 +88,14 @@ public class TypeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(4))
-                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
-                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
-                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
-                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()));
+                .andExpect(jsonPath("$[0].value").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1].value").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2].value").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3].value").value(LogicalOperation.ENDS_WITH.getValue()))
+                .andExpect(jsonPath("$[0].label").value(LogicalOperation.CONTAINS.name()))
+                .andExpect(jsonPath("$[1].label").value(LogicalOperation.EQUALS.name()))
+                .andExpect(jsonPath("$[2].label").value(LogicalOperation.STARTS_WITH.name()))
+                .andExpect(jsonPath("$[3].label").value(LogicalOperation.ENDS_WITH.name()));
     }
 
     @Test
@@ -108,10 +111,14 @@ public class TypeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(4))
-                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
-                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
-                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
-                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()));
+                .andExpect(jsonPath("$[0].value").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1].value").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2].value").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3].value").value(LogicalOperation.ENDS_WITH.getValue()))
+                .andExpect(jsonPath("$[0].label").value(LogicalOperation.CONTAINS.name()))
+                .andExpect(jsonPath("$[1].label").value(LogicalOperation.EQUALS.name()))
+                .andExpect(jsonPath("$[2].label").value(LogicalOperation.STARTS_WITH.name()))
+                .andExpect(jsonPath("$[3].label").value(LogicalOperation.ENDS_WITH.name()));
     }
 
     @Test
@@ -127,11 +134,16 @@ public class TypeControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.length()").value(5))
-                .andExpect(jsonPath("$[0]").value(LogicalOperation.CONTAINS.getValue()))
-                .andExpect(jsonPath("$[1]").value(LogicalOperation.EQUALS.getValue()))
-                .andExpect(jsonPath("$[2]").value(LogicalOperation.STARTS_WITH.getValue()))
-                .andExpect(jsonPath("$[3]").value(LogicalOperation.ENDS_WITH.getValue()))
-                .andExpect(jsonPath("$[4]").value(LogicalOperation.FUZZY_LIKE.getValue()));
+                .andExpect(jsonPath("$[0].value").value(LogicalOperation.CONTAINS.getValue()))
+                .andExpect(jsonPath("$[1].value").value(LogicalOperation.EQUALS.getValue()))
+                .andExpect(jsonPath("$[2].value").value(LogicalOperation.STARTS_WITH.getValue()))
+                .andExpect(jsonPath("$[3].value").value(LogicalOperation.ENDS_WITH.getValue()))
+                .andExpect(jsonPath("$[4].value").value(LogicalOperation.FUZZY_LIKE.getValue()))
+                .andExpect(jsonPath("$[0].label").value(LogicalOperation.CONTAINS.name()))
+                .andExpect(jsonPath("$[1].label").value(LogicalOperation.EQUALS.name()))
+                .andExpect(jsonPath("$[2].label").value(LogicalOperation.STARTS_WITH.name()))
+                .andExpect(jsonPath("$[3].label").value(LogicalOperation.ENDS_WITH.name()))
+                .andExpect(jsonPath("$[4].label").value(LogicalOperation.FUZZY_LIKE.name()));
     }
 
     @Test
@@ -145,7 +157,6 @@ public class TypeControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(content().string(ControlType.TEXT_FIELD.getType()))
-                .andDo(handler -> System.out.println(handler.getResponse().getContentAsString()));
+                .andExpect(jsonPath("controlType").value("text"));
     }
 }

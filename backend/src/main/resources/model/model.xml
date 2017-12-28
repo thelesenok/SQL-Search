@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema.xsd">
     <type>
-        <type>project</type>
+        <type>All available projects</type>
         <table>PROJECTS</table>
         <properties>
             <property>

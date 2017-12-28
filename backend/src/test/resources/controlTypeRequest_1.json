@@ -1,6 +1,6 @@
 {
-  "requestedType": "project",
-  "requestedProp": "number-property",
+  "requestedType": "PROJECTS",
+  "requestedProp": "NUMBER_COLUMN",
   "requestedOperation": "equals",
   "searchTypes": [
     "attributive"
