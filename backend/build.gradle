@@ -24,9 +24,10 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	/* compile('org.springframework.boot:spring-boot-starter-security') */
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	/* compile('org.springframework.boot:spring-boot-starter-data-jpa') */
 	compile('org.springframework.boot:spring-boot-starter-validation')
 	compile('commons-io:commons-io:2.6')
+    compile('com.github.jsqlparser:jsqlparser:0.9')
 	/* compile('com.google.guava:guava:23.6-jre') */
 	compile('org.apache.commons:commons-lang3:3.7')
 	runtime('org.springframework.boot:spring-boot-devtools')
