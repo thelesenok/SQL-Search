@@ -11,6 +11,8 @@ import ru.mydesignstudio.search.sql.app.rest.model.response.SearchResponse;
 import ru.mydesignstudio.search.sql.app.rest.transformer.SearchResponseTransformer;
 import ru.mydesignstudio.search.sql.app.service.search.QueryBuilder;
 import ru.mydesignstudio.search.sql.app.service.search.SearchService;
+import ru.mydesignstudio.search.sql.app.service.search.result.set.SqlResultSet;
+import ru.mydesignstudio.search.sql.app.service.search.weight.calculator.RowWeightCalculator;
 
 import java.util.Collection;
 
@@ -23,11 +25,14 @@ public class SearchController {
     private SearchService searchService;
     @Autowired
     private SearchResponseTransformer responseTransformer;
+    @Autowired
+    private RowWeightCalculator weightCalculator;
 
     @PostMapping
     public SearchResponse search(@RequestBody @Validated SearchRequest request) {
         final String query = queryBuilder.buildQuery(request);
-        final Collection<Collection<String>> results = searchService.search(query);
-        return responseTransformer.transform(results);
+        final SqlResultSet resultSet = searchService.search(query);
+        final SqlResultSet weightedResultSet = weightCalculator.weightResultSet(resultSet, request);
+        return responseTransformer.transform(weightedResultSet);
     }
 }

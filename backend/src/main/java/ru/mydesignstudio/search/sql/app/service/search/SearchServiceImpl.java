@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
 import ru.mydesignstudio.search.sql.app.service.model.ModelService;
+import ru.mydesignstudio.search.sql.app.service.search.result.set.SqlResultSet;
+import ru.mydesignstudio.search.sql.app.service.search.result.set.SqlResultSetRow;
+import ru.mydesignstudio.search.sql.app.service.search.weight.calculator.RowWeightCalculator;
 import ru.mydesignstudio.search.sql.app.utils.Validations;
 
 import java.sql.ResultSet;
@@ -26,29 +29,43 @@ public class SearchServiceImpl implements SearchService {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public Collection<Collection<String>> search(String query) {
+    public SqlResultSet search(String query) {
         Validations.assertTrue(StringUtils.isNoneBlank(query), "Query wasn't provided");
 
-        final Collection<Collection<String>> result = new ArrayList<>();
-
+        // get data
+        final SqlResultSet resultSet = new SqlResultSet();
         jdbcTemplate.query(query, (rs) -> {
             final ResultSetMetaData metaData = rs.getMetaData();
             final int columnCount = metaData.getColumnCount();
-            Collection<String> row = new ArrayList<>();
-            if (result.size() == 0) {
-                for (int i = 1; i <= columnCount; i++) {
-                    row.add(metaData.getColumnName(i));
-                }
-                result.add(row);
+            final SqlResultSetRow row = new SqlResultSetRow();
+            for (int i = 1; i <= columnCount; i++) {
+                row.addValue(
+                        metaData.getColumnName(i),
+                        rs.getString(i)
+                );
             }
-            row = new ArrayList<>();
-            for (int i  = 1; i <= columnCount; i++) {
-                row.add(rs.getString(i));
-            }
-            result.add(row);
+            resultSet.addRow(row);
         });
 
+        return resultSet;
+        /*
+
+        // weight data
+        // weightCalculator.weightResultSet(resultSet)
+
+        // convert to collection
+        final Collection<Collection<String>> result = new ArrayList<>();
+        final Collection<String> heading = new ArrayList<>(resultSet.getColumnNames());
+        result.add(heading);
+        for (SqlResultSetRow sqlRow : resultSet.getRows()) {
+            final Collection<String> row = new ArrayList<>();
+            for (String columnName : sqlRow.getColumnNames()) {
+                row.add(sqlRow.getValue(columnName));
+            }
+            result.add(row);
+        }
         return result;
+        */
     }
 
     @Override

@@ -24,7 +24,7 @@ public class QueryBuilder {
         Validations.assertNotNull(request, "Search request wasn't provided");
 
         final StringBuilder builder = new StringBuilder();
-        builder.append(" SELECT ");
+        builder.append("SELECT ");
         builder.append(selectBuilder.buildSelect(request));
         builder.append(" FROM ");
         builder.append(fromBuilder.buildFrom(request));

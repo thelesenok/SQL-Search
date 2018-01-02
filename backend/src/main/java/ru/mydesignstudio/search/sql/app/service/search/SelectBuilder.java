@@ -37,7 +37,8 @@ public class SelectBuilder {
 
         builder.append(selectType.getTableName())
                 .append(".")
-                .append(primaryKeyProperty.getPropertyColumn());
+                .append(primaryKeyProperty.getPropertyColumn())
+                .append(" AS ID");
 
         return builder.toString();
     }
