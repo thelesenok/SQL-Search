@@ -3,17 +3,17 @@ package ru.mydesignstudio.search.sql.app.service.search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
-import ru.mydesignstudio.search.sql.app.model.PropertyType;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
 import ru.mydesignstudio.search.sql.app.rest.model.request.SearchRequest;
 import ru.mydesignstudio.search.sql.app.service.model.ModelService;
-import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
 import ru.mydesignstudio.search.sql.app.utils.Validations;
 
 @Component
 public class WhereValueBuilder {
     @Autowired
     private ModelService modelService;
+    @Autowired
+    private FuzzyWhereValueBuilder fuzzyWhereValueBuilder;
 
     public String buildWhereValue(final SearchRequest request, final SearchRequest.SearchAttribute attribute) {
         Validations.assertNotNull(request, "Search request wasn't provided");
@@ -40,6 +40,10 @@ public class WhereValueBuilder {
                     case LESS_OR_EQUALS:
                     case LESS_THAN:
                         return attribute.getValue();
+                    case FUZZY_LIKE:
+                        return fuzzyWhereValueBuilder.buildWhereValue(
+                                request, attribute
+                        );
                     case EQUALS:
                         switch (propertyDefinition.getPropertyType()) {
                             case NUMBER:

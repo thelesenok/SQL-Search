@@ -52,4 +52,18 @@ public class SearchControllerTest {
                 .andExpect(jsonPath("$.rows").isArray())
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
     }
+
+    @Test
+    public void search3() throws Exception {
+        final String request = JsonRequestReader.readFromFile("searchRequest_3.json");
+        mvc.perform(
+                post("/search")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(request)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.rows").isArray())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
+    }
 }

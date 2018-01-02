@@ -25,6 +25,8 @@ public class WhereOperationBuilder {
                 return " <= ";
             case LESS_THAN:
                 return " < ";
+            case FUZZY_LIKE:
+                return "";
         }
         throw new RuntimeException(String.format(
                 "Operation %s is not supported",
