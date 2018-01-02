@@ -71,4 +71,12 @@ public class TypeDefinition {
         result = 31 * result + tableName.hashCode();
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "TypeDefinition{" +
+				"typeName='" + typeName + '\'' +
+				", tableName='" + tableName + '\'' +
+				'}';
+	}
 }

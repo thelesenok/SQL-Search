@@ -1,8 +1,10 @@
 package ru.mydesignstudio.search.sql.app.rest.model.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.mydesignstudio.search.sql.app.model.PropertyType;
 import ru.mydesignstudio.search.sql.app.service.SearchType;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
+import ru.mydesignstudio.search.sql.app.service.value.ControlType;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -75,10 +77,11 @@ public class SearchRequest {
         @Size(min = 1)
         private String property;
         @NotNull
+        @JsonProperty("operation")
         private LogicalOperation logicalOperation;
         @NotNull
         @Size(min = 1)
-        private PropertyType valueType;
+        private ControlType valueType;
         @NotNull
         @Size(min = 1)
         private String value;
@@ -107,11 +110,11 @@ public class SearchRequest {
             this.logicalOperation = logicalOperation;
         }
 
-        public PropertyType getValueType() {
+        public ControlType getValueType() {
             return valueType;
         }
 
-        public void setValueType(PropertyType valueType) {
+        public void setValueType(ControlType valueType) {
             this.valueType = valueType;
         }
 

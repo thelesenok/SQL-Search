@@ -22,10 +22,24 @@ public class SelectBuilder {
         Validations.assertNotNull(request, "Search request wasn't provided");
 
         final Collection<String> parts = new HashSet<>();
+        parts.add(buildPrimaryKey(request));
         for (SearchRequest.SearchAttribute attribute : request.getAttributes()) {
             parts.add(buildAttribute(attribute));
         }
         return StringUtils.join(parts, ", ");
+    }
+
+    private String buildPrimaryKey(SearchRequest request) {
+        final StringBuilder builder = new StringBuilder();
+
+        final TypeDefinition selectType = modelService.findType(request.getSelectFrom());
+        final PropertyDefinition primaryKeyProperty = modelService.findPrimaryKeyProperty(selectType);
+
+        builder.append(selectType.getTableName())
+                .append(".")
+                .append(primaryKeyProperty.getPropertyColumn());
+
+        return builder.toString();
     }
 
     private String buildAttribute(SearchRequest.SearchAttribute attribute) {

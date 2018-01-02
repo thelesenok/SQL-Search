@@ -1,0 +1,18 @@
+{
+  "searchTypes":[
+    "attributive",
+    "relational"
+  ],
+  "joinType":"and",
+  "fuzzyMaskSize":2,
+  "selectFrom":"CUSTOMERS",
+  "attributes":[
+    {
+      "selectClass":"CUSTOMERS",
+      "property":"CUSTOMER_TYPE_ID",
+      "operation":"equals",
+      "valueType":"select",
+      "value":"4"
+    }
+  ]
+}

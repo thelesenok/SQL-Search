@@ -1,6 +1,5 @@
 package ru.mydesignstudio.search.sql.app.service.search;
 
-import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
 
 import java.util.Collection;

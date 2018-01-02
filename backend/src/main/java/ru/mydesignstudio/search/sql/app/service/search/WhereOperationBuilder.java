@@ -12,7 +12,19 @@ public class WhereOperationBuilder {
 
         switch (attribute.getLogicalOperation()) {
             case EQUALS: return " = ";
-            case LIKE: return " LIKE ";
+            case LIKE:
+            case ENDS_WITH:
+            case STARTS_WITH:
+            case CONTAINS:
+                return " LIKE ";
+            case MORE_OR_EQUALS:
+                return " >= ";
+            case MORE_THAN:
+                return " > ";
+            case LESS_OR_EQUALS:
+                return " <= ";
+            case LESS_THAN:
+                return " < ";
         }
         throw new RuntimeException(String.format(
                 "Operation %s is not supported",

@@ -69,7 +69,7 @@
                 <property>CUSTOMER_TYPE_NAME</property>
                 <column>CUSTOMER_TYPE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>

@@ -11,7 +11,11 @@ public enum ControlType {
     /**
      * Text field control.
      */
-    TEXT_FIELD("input");
+    TEXT_FIELD("input"),
+    /**
+     * Undefined control type.
+     */
+    UNDEFINED("undefined");
 
     private final String type;
 
@@ -21,5 +25,14 @@ public enum ControlType {
 
     public String getType() {
         return type;
+    }
+
+    public static final ControlType byType(String type) {
+        for (ControlType controlType : values()) {
+            if (type.equalsIgnoreCase(controlType.getType())) {
+                return controlType;
+            }
+        }
+        return ControlType.UNDEFINED;
     }
 }

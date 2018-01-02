@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import ru.mydesignstudio.search.sql.app.AppApplication;
 import ru.mydesignstudio.search.sql.app.utils.JsonRequestReader;
 
 import static org.junit.Assert.*;
@@ -19,16 +20,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
-@SpringBootTest
-@TestPropertySource(properties = {
-        "model.filepath=/model/test_types.xml"
-})
+@SpringBootTest(classes = AppApplication.class)
 public class SearchControllerTest {
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void search() throws Exception {
+    public void search1() throws Exception {
         final String request = JsonRequestReader.readFromFile("searchRequest_1.json");
         mvc.perform(
                 post("/search")
@@ -41,4 +39,17 @@ public class SearchControllerTest {
                 .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
     }
 
+    @Test
+    public void search2() throws Exception {
+        final String request = JsonRequestReader.readFromFile("searchRequest_2.json");
+        mvc.perform(
+                post("/search")
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .content(request)
+        )
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$.rows").isArray())
+                .andDo(result -> System.out.println(result.getResponse().getContentAsString()));
+    }
 }

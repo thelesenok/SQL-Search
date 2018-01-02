@@ -4,28 +4,14 @@
   ],
   "joinType": "and",
   "fuzzyMaskSize": 2,
-  "selectFrom": "PROJECTS",
+  "selectFrom": "CUSTOMERS",
   "attributes": [
     {
-      "selectClass": "PROJECTS",
-      "property": "STRING_COLUMN",
-      "logicalOperation": "equals",
-      "valueType": "string",
-      "value": "something"
-    },
-    {
-      "selectClass": "PROJECTS",
-      "property": "FOREIGN_COLUMN",
-      "logicalOperation": "equals",
-      "valueType": "number",
-      "value": "12"
-    },
-    {
-      "selectClass": "EXECUTORS",
-      "property": "EXECUTOR_FULL_NAME",
-      "logicalOperation": "like",
-      "valueType": "string",
-      "value": "abc"
+      "selectClass": "CUSTOMERS",
+      "property": "CUSTOMER_FIRST_NAME",
+      "operation": "like",
+      "valueType": "input",
+      "value": "зак"
     }
   ]
 }
