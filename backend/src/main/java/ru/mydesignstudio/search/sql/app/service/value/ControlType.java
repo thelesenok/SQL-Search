@@ -5,6 +5,10 @@ package ru.mydesignstudio.search.sql.app.service.value;
  */
 public enum ControlType {
     /**
+     * Select from list field type.
+     */
+    SELECT("select"),
+    /**
      * Text field control.
      */
     TEXT_FIELD("text");

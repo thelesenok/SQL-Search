@@ -163,7 +163,7 @@
                 <property>ORGANIZATION_NAME</property>
                 <column>ORGANIZATION_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>

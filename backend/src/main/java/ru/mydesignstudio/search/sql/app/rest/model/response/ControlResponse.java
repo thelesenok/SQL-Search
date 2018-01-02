@@ -23,9 +23,17 @@ public class ControlResponse {
         this.items = items;
     }
 
-    public class SelectItem {
+    public static class SelectItem {
         private String label;
         private String value;
+
+        public SelectItem() {
+        }
+
+        public SelectItem(String label, String value) {
+            this.label = label;
+            this.value = value;
+        }
 
         public String getLabel() {
             return label;

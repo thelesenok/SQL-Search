@@ -18,6 +18,7 @@ import ru.mydesignstudio.search.sql.app.rest.model.response.OperationResponse;
 import ru.mydesignstudio.search.sql.app.rest.model.response.PropertyResponse;
 import ru.mydesignstudio.search.sql.app.rest.model.response.TypeResponse;
 import ru.mydesignstudio.search.sql.app.rest.transformer.ControlTypeTransformer;
+import ru.mydesignstudio.search.sql.app.rest.transformer.LookupValuesTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.OperationTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.PropertyTransformer;
 import ru.mydesignstudio.search.sql.app.rest.transformer.TypeTransformer;
@@ -28,8 +29,10 @@ import ru.mydesignstudio.search.sql.app.service.property.PropertyDefinitionFinde
 import ru.mydesignstudio.search.sql.app.service.type.AvailableTypesFinder;
 import ru.mydesignstudio.search.sql.app.service.value.ControlType;
 import ru.mydesignstudio.search.sql.app.service.value.ControlTypeFinder;
+import ru.mydesignstudio.search.sql.app.service.value.LookupValuesFinder;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,6 +49,8 @@ public class TypeController {
     @Autowired
     private ControlTypeFinder controlTypeFinder;
     @Autowired
+    private LookupValuesFinder lookupValuesFinder;
+    @Autowired
     private TypeTransformer typeTransformer;
     @Autowired
     private PropertyTransformer propertyTransformer;
@@ -53,6 +58,8 @@ public class TypeController {
     private OperationTransformer operationTransformer;
     @Autowired
     private ControlTypeTransformer controlTypeTransformer;
+    @Autowired
+    private LookupValuesTransformer lookupValuesTransformer;
 
     @GetMapping
     public Collection<TypeResponse> findAllTypes() {
@@ -103,6 +110,11 @@ public class TypeController {
                 request.getRequestedOperation(),
                 request.getSearchTypes()
         );
-        return controlTypeTransformer.transform(controlType);
+        final ControlResponse controlResponse = controlTypeTransformer.transform(controlType);
+        if (ControlType.SELECT.equals(controlType)) {
+            final Map<Integer, String> lookupValues = lookupValuesFinder.findLookupValues(property);
+            controlResponse.setItems(lookupValuesTransformer.transform(lookupValues));
+        }
+        return controlResponse;
     }
 }

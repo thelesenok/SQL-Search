@@ -2,6 +2,7 @@ package ru.mydesignstudio.search.sql.app.service.value;
 
 import org.springframework.stereotype.Component;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
+import ru.mydesignstudio.search.sql.app.model.PropertyType;
 import ru.mydesignstudio.search.sql.app.model.TypeDefinition;
 import ru.mydesignstudio.search.sql.app.service.SearchType;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
@@ -25,7 +26,19 @@ public class ControlTypeFinder {
             final LogicalOperation logicalOperation,
             final Collection<SearchType> searchTypes) {
 
-        // actually, it doesn't depends on type right now, but let it be
+        if (isLookupFieldAndSearch(searchTypes, propertyDefinition)) {
+            return ControlType.SELECT;
+        }
         return ControlType.TEXT_FIELD;
+    }
+
+    private boolean isLookupFieldAndSearch(Collection<SearchType> searchTypes, PropertyDefinition propertyDefinition) {
+        if (!searchTypes.contains(SearchType.RELATIONAL)) {
+            return false;
+        }
+        if (!PropertyType.REFERENCE.equals(propertyDefinition.getPropertyType())) {
+            return false;
+        }
+        return true;
     }
 }
