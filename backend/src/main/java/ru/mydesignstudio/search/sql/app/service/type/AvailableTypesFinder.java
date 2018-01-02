@@ -34,7 +34,7 @@ public class AvailableTypesFinder {
             // until now, we will add only direct relations, not backward
             for (PropertyDefinition property : requestType.getProperties()) {
                 if (PropertyType.REFERENCE.equals(property.getPropertyType())) {
-                    final TypeDefinition referencedType = modelService.findType(property.getPropertyType().getType());
+                    final TypeDefinition referencedType = modelService.findType(property.getTypeReference().getReferenceType());
                     availableTypes.add(referencedType);
                 }
             }
