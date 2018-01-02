@@ -24,10 +24,11 @@ const mapStateToProps = (state, ownProps) => {
         
         operationsLoaded: value.operationsLoaded,
         availableOperations: value.availableOperations,
-        selectedOperaion: value.selectedOperaion,
+        selectedOperation: value.selectedOperaion,
 
         valueTypeLoaded: value.valueTypeLoaded,
         valueTypeComponent: value.valueType,
+        valueItems: value.valueItems,
 
         attributeRemoveEnabled: value.typesLoaded &&
                 value.propsLoaded &&

@@ -7,7 +7,8 @@ const ValueInput = (props) => {
         index,
         valueTypeLoaded,
         componentType,
-        onValueChange
+        onValueChange,
+        items
     } = props;
 
     if (!valueTypeLoaded) {
@@ -16,14 +17,23 @@ const ValueInput = (props) => {
         );
     }
 
+    const values = componentType === 'select' ? items.map(item => {
+        return <option key={item.value} value={item.value}>
+            {item.label}
+        </option>
+    }) : null;
+
     return (
-        <FormControl type={componentType}
-                     onChange={e => onValueChange(index, e.target.value)}/>
+        <FormControl componentClass={componentType}
+                     onChange={e => onValueChange(index, e.target.value)}>
+            {values}
+        </FormControl>
     );
 };
 
 ValueInput.propTypes = {
     index: PropTypes.number.isRequired,
+    items: PropTypes.array.isRequired,
     valueTypeLoaded: PropTypes.bool.isRequired,
     componentType: PropTypes.string,
     onValueChange: PropTypes.func.isRequired

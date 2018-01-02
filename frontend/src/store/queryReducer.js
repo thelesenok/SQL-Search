@@ -187,7 +187,8 @@ const queryReducer = (state = initialState, action) => {
                 attr => attr.index === action.payload.index,
                 {
                     valueTypeLoaded: true,
-                    valueType: action.payload.valueType
+                    valueType: action.payload.valueType,
+                    valueItems: action.payload.items
                 }
             )
         };

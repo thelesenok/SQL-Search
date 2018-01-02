@@ -35,6 +35,7 @@ const AttributiveSearchProperty = (props) => {
                 <ValueInput index={props.index}
                             componentType={props.valueTypeComponent}
                             onValueChange={props.onValueChange}
+                            items={props.valueItems}
                             valueTypeLoaded={props.valueTypeLoaded} />
             </td>
             <td>
@@ -65,10 +66,11 @@ AttributiveSearchProperty.propTypes = {
     onOperationChange: PropTypes.func.isRequired,
     operationsLoaded: PropTypes.bool.isRequired,
     availableOperations: PropTypes.array.isRequired,
-    selectedOperaion: PropTypes.any, // todo fix it,
+    selectedOperation: PropTypes.any, // todo fix it,
 
     valueTypeLoaded: PropTypes.bool.isRequired,
     valueTypeComponent: PropTypes.string, // todo fix it
+    valueItems: PropTypes.array.isRequired,
     onValueChange: PropTypes.func.isRequired,
 
     onAttributeRemove: PropTypes.func.isRequired,

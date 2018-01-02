@@ -1,7 +1,5 @@
-import ValueType from './ValueType';
 import axios from 'axios';
 
-// this is mock functions
 const getIndex = (properties = []) => {
     let index = 0;
     properties.forEach(prop => {
@@ -23,6 +21,7 @@ const createEmptyAttribute = (properties) => ({
     operationsLoaded: false,
     valueTypeLoaded: false,
     valueType: null,
+    valueItems: [],
     selectedType: null,
     selectedProp: null,
     selectedOperation: null,
@@ -38,7 +37,6 @@ PropertyService.createAttribute = (attributes) => {
 };
 
 PropertyService.getAvailableTypes = (selectType, searchTypes) => {
-    // mock implementation
     return new Promise(resolve => {
         axios.post('/types/available', {
             selectType: selectType,
@@ -63,7 +61,6 @@ PropertyService.getAvailableProperties = (selectedType, searchTypes) => {
 };
 
 PropertyService.getAvailableLogicalOperations = (selectedType, selectedProp, searchTypes) => {
-    // mock implementation
     return new Promise(resolve => {
         axios.post('/types/operations', {
             requestedType: selectedType,
@@ -76,7 +73,6 @@ PropertyService.getAvailableLogicalOperations = (selectedType, selectedProp, sea
 };
 
 PropertyService.getAvailableValueType = (selectedType, selectedProp, selectedOperation, searchTypes) => {
-    // mock implementation
     return new Promise(resolve => {
         axios.post('/types/control', {
             requestedType: selectedType,

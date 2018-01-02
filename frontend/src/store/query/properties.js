@@ -197,9 +197,16 @@ export const attributeOperationChange = (index, selectedOperation) => {
                     type: ATTRIBUTE_VALUE_TYPE_LOADED,
                     payload: {
                         index: index,
-                        valueType: type.component
+                        valueType: type.controlType,
+                        items: type.items
                     }
                 });
+                if (type.items.length > 0) {
+                    dispatch(attributeValueChange(
+                        index,
+                        type.items[0].value
+                    ))
+                }
             });
     }
 };

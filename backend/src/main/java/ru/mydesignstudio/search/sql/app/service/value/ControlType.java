@@ -11,7 +11,7 @@ public enum ControlType {
     /**
      * Text field control.
      */
-    TEXT_FIELD("text");
+    TEXT_FIELD("input");
 
     private final String type;
 
