@@ -1,0 +1,8 @@
+{
+  "requestedType": "PROJECTS",
+  "requestedProp": "NUMBER_COLUMN",
+  "requestedOperation": "equals",
+  "searchTypes": [
+    "attributive"
+  ]
+}
