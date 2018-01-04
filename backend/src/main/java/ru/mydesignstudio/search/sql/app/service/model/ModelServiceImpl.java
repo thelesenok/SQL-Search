@@ -3,6 +3,8 @@ package ru.mydesignstudio.search.sql.app.service.model;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import ru.mydesignstudio.search.sql.app.model.ModelDefinition;
 import ru.mydesignstudio.search.sql.app.model.PropertyDefinition;
@@ -12,6 +14,8 @@ import ru.mydesignstudio.search.sql.app.service.model.definition.reader.ModelDef
 import ru.mydesignstudio.search.sql.app.utils.Validations;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Collection;
 
@@ -23,10 +27,14 @@ public class ModelServiceImpl implements ModelService {
     private ModelDefinitionReader definitionReader;
 
     private ModelDefinition getModel() {
-        final URL resource = getClass().getResource(modelFilename);
-        return definitionReader.read(new File(
-                resource.getFile()
-        ));
+        try (final InputStream inputStream = new ClassPathResource(modelFilename).getInputStream()) {
+            return definitionReader.read(inputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(String.format(
+                    "Can't load model definition file from %s",
+                    modelFilename
+            ));
+        }
     }
 
     @Override

@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest
 @TestPropertySource(properties = {
-        "model.filepath=/model/test_types.xml"
+        "model.filepath=model/test_types.xml"
 })
 public class TypeControllerTest {
     @Autowired

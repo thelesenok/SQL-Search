@@ -11,6 +11,7 @@ import ru.mydesignstudio.search.sql.app.utils.Validations;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 
 @Component
@@ -19,8 +20,8 @@ public class ModelDefinitionReaderImpl implements ModelDefinitionReader {
      * {@inheritDoc}
      */
     @Override
-    public ModelDefinition read(File file) {
-        Validations.assertNotNull(file, "Configuration file not provided");
+    public ModelDefinition read(final InputStream inputStream) {
+        Validations.assertNotNull(inputStream, "Configuration file not provided");
 
         try {
             final JAXBContext context = JAXBContext.newInstance(
@@ -30,9 +31,8 @@ public class ModelDefinitionReaderImpl implements ModelDefinitionReader {
                     TypeDefinition.class,
                     TypeReference.class
             );
-            final URL modelUrl = file.toURI().toURL();
             final Unmarshaller unmarshaller = context.createUnmarshaller();
-            return (ModelDefinition) unmarshaller.unmarshal(modelUrl);
+            return (ModelDefinition) unmarshaller.unmarshal(inputStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
