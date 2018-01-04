@@ -157,6 +157,6 @@ public class TypeControllerTest {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("controlType").value("text"));
+                .andExpect(jsonPath("controlType").value("input"));
     }
 }

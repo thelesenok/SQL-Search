@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import ru.mydesignstudio.search.sql.app.model.PropertyType;
+import ru.mydesignstudio.search.sql.app.rest.json.ControlTypeJsonAdapter;
 import ru.mydesignstudio.search.sql.app.rest.json.LogicalOperationJsonAdapter;
 import ru.mydesignstudio.search.sql.app.rest.json.PropertyTypeJsonAdapter;
 import ru.mydesignstudio.search.sql.app.rest.json.SearchTypeJsonAdapter;
 import ru.mydesignstudio.search.sql.app.service.SearchType;
 import ru.mydesignstudio.search.sql.app.service.operation.LogicalOperation;
+import ru.mydesignstudio.search.sql.app.service.value.ControlType;
 
 import java.io.IOException;
 
@@ -41,6 +43,10 @@ public class SerializationUtils {
         final SimpleModule propertyTypeAdapter = new SimpleModule();
         propertyTypeAdapter.addDeserializer(PropertyType.class, new PropertyTypeJsonAdapter.Deserializer());
         objectMapper.registerModule(propertyTypeAdapter);
+
+        final SimpleModule controlTypeAdapter = new SimpleModule();
+        controlTypeAdapter.addDeserializer(ControlType.class, new ControlTypeJsonAdapter.Deserializer());
+        objectMapper.registerModule(controlTypeAdapter);
 
         try {
             return objectMapper.readerFor(clazz)

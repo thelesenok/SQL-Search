@@ -14,9 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@TestPropertySource(properties = {
-        "model.filepath=/model/test_types.xml"
-})
 public class QueryBuilderTest {
     @Autowired
     private QueryBuilder queryBuilder;

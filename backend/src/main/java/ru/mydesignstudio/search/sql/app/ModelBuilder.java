@@ -1,7 +1,6 @@
 package ru.mydesignstudio.search.sql.app;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.mydesignstudio.search.sql.app.model.ModelDefinition;
 import ru.mydesignstudio.search.sql.app.sql.ModelXmlExporter;
@@ -10,7 +9,7 @@ import ru.mydesignstudio.search.sql.app.sql.SqlModelGenerator;
 import java.io.File;
 import java.net.URL;
 
-@SpringBootApplication
+// @SpringBootApplication
 public class ModelBuilder {
     public static void main(String[] args) throws Exception {
         final ConfigurableApplicationContext context =
