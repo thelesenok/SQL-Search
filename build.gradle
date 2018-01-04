@@ -1,0 +1,24 @@
+apply plugin: 'base'
+
+version='0.1'
+
+task release(dependsOn: ':backend:build') {
+    doLast {
+        def target = rootDir.getAbsolutePath() + '/dist';
+        def src = rootDir.getAbsolutePath() + '/backend/build/libs/backend.jar';
+        // create target dir
+        def targetDir = new File(target);
+        if (!targetDir.exists()) {
+            targetDir.mkdirs();
+        }
+        // clear target dir
+        for (File file : targetDir.listFiles()) {
+            file.delete();
+        }
+        // open source file
+        def srcFile = new File(src);
+        // move it
+        def targetFile = new File(target + '/app-' + project.version + '.jar');
+        srcFile.renameTo(targetFile);
+    }
+}

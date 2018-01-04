@@ -1,0 +1,17 @@
+{
+  "searchTypes": [
+    "attributive"
+  ],
+  "joinType": "and",
+  "fuzzyMaskSize": 2,
+  "selectFrom": "CUSTOMERS",
+  "attributes": [
+    {
+      "selectClass": "CUSTOMERS",
+      "property": "CUSTOMER_FIRST_NAME",
+      "operation": "like",
+      "valueType": "input",
+      "value": "зак"
+    }
+  ]
+}

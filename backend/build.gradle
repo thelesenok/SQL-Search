@@ -1,0 +1,44 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.6.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-validation')
+	compile('commons-io:commons-io:2.6')
+    compile('com.github.jsqlparser:jsqlparser:0.9')
+	compile('mysql:mysql-connector-java')
+	compile('org.apache.commons:commons-lang3:3.7')
+	runtime('org.springframework.boot:spring-boot-devtools')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('com.h2database:h2:1.4.194')
+	testCompile('org.flywaydb:flyway-core:5.0.4')
+}
+
+jar {
+  from('../frontend/build') {
+    into 'static'
+  }
+}
+
+jar.dependsOn(':frontend:build')

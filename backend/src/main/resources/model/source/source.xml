@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pma_xml_export version="1.0" xmlns:pma="https://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="project_db" collation="utf8_general_ci" charset="utf8">
+            <pma:table name="CUSTOMERS">
+                CREATE TABLE `CUSTOMERS` (
+                `CUSTONER_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `CUSTOMER_FIRST_NAME` varchar(1024) DEFAULT NULL,
+                `CUSTOMER_LAST_NAME` varchar(1024) DEFAULT NULL,
+                `CUSTOMER_MIDDLE_NAME` varchar(1024) DEFAULT NULL,
+                `ORGANIZATION_ID` int(11) NOT NULL,
+                `CUSTOMER_TYPE_ID` int(11) NOT NULL,
+                PRIMARY KEY (`CUSTONER_ID`),
+                KEY `CUSTOMER_TYPE_ID` (`CUSTOMER_TYPE_ID`),
+                KEY `ORGANIZATION_ID1` (`ORGANIZATION_ID`),
+                CONSTRAINT `CUSTOMER_TYPE_ID` FOREIGN KEY (`CUSTOMER_TYPE_ID`) REFERENCES `CUSTOMER_TYPES` (`CUSTOMER_TYPE_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `ORGANIZATION_ID1` FOREIGN KEY (`ORGANIZATION_ID`) REFERENCES `ORGANIZATIONS` (`ORGANIZATION_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="CUSTOMER_TYPES">
+                CREATE TABLE `CUSTOMER_TYPES` (
+                `CUSTOMER_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `CUSTOMER_TYPE_NAME` varchar(1024) DEFAULT NULL,
+                PRIMARY KEY (`CUSTOMER_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="EXECUTORS">
+                CREATE TABLE `EXECUTORS` (
+                `EXECUTOR_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `EXECUTOR_FIRST_NAME` varchar(1024) DEFAULT NULL,
+                `EXECUTOR_LAST_NAME` varchar(1024) DEFAULT NULL,
+                `EXECUTOR_MIDDLE_NAME` varchar(1024) DEFAULT NULL,
+                `ORGANIZATION_ID` int(11) NOT NULL,
+                `EXECUTOR_TYPE_ID` int(11) NOT NULL,
+                PRIMARY KEY (`EXECUTOR_ID`),
+                KEY `ORGANIZATION_ID` (`ORGANIZATION_ID`),
+                KEY `EXECUTOR_TYPE_ID` (`EXECUTOR_TYPE_ID`),
+                CONSTRAINT `EXECUTOR_TYPE_ID` FOREIGN KEY (`EXECUTOR_TYPE_ID`) REFERENCES `EXECUTOR_TYPES` (`EXECUTOR_TYPE_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `ORGANIZATION_ID` FOREIGN KEY (`ORGANIZATION_ID`) REFERENCES `ORGANIZATIONS` (`ORGANIZATION_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="EXECUTOR_TYPES">
+                CREATE TABLE `EXECUTOR_TYPES` (
+                `EXECUTOR_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `EXECUTOR_TYPE_NAME` varchar(1024) DEFAULT NULL,
+                PRIMARY KEY (`EXECUTOR_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="ORGANIZATIONS">
+                CREATE TABLE `ORGANIZATIONS` (
+                `ORGANIZATION_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `ORGANIZATION_NAME` varchar(1024) NOT NULL,
+                `ORGANIZATION_MANAGEMENT_TYPE_ID` int(11) DEFAULT NULL,
+                PRIMARY KEY (`ORGANIZATION_ID`),
+                KEY `ORGANIZATION_MANAGEMENT_TYPE_ID` (`ORGANIZATION_MANAGEMENT_TYPE_ID`),
+                CONSTRAINT `ORGANIZATION_MANAGEMENT_TYPE_ID` FOREIGN KEY (`ORGANIZATION_MANAGEMENT_TYPE_ID`) REFERENCES `ORGANIZATION_MANAGEMENT_TYPES` (`ORGANIZATION_MANAGEMENT_TYPE_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="ORGANIZATION_MANAGEMENT_TYPES">
+                CREATE TABLE `ORGANIZATION_MANAGEMENT_TYPES` (
+                `ORGANIZATION_MANAGEMENT_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `ORGANIZATION_MANAGEMENT_TYPE_NAME` varchar(1024) NOT NULL,
+                PRIMARY KEY (`ORGANIZATION_MANAGEMENT_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECTS">
+                CREATE TABLE `PROJECTS` (
+                `PROJECT_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `NAME` varchar(1024) DEFAULT NULL,
+                `PLAN_DATE_START` datetime DEFAULT NULL,
+                `PLAN_DATE_END` datetime DEFAULT NULL,
+                `FACT_DATE_END` datetime DEFAULT NULL,
+                `FACT_DATE_START` datetime DEFAULT NULL,
+                `EXECUTOR_ID` int(11) NOT NULL,
+                `CUSTOMER_ID` int(11) NOT NULL,
+                `PROJECT_METHODOLOGY_ID` int(11) NOT NULL,
+                `PROJECT_BUDGET` decimal(10,0) NOT NULL,
+                PRIMARY KEY (`PROJECT_ID`),
+                KEY `EXECUTOR_ID` (`EXECUTOR_ID`),
+                KEY `CUSTOMER_ID` (`CUSTOMER_ID`),
+                KEY `PROJECT_METHODOLOGY_ID` (`PROJECT_METHODOLOGY_ID`),
+                CONSTRAINT `CUSTOMER_ID` FOREIGN KEY (`CUSTOMER_ID`) REFERENCES `CUSTOMERS` (`CUSTONER_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `EXECUTOR_ID` FOREIGN KEY (`EXECUTOR_ID`) REFERENCES `EXECUTORS` (`EXECUTOR_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_METHODOLOGY_ID` FOREIGN KEY (`PROJECT_METHODOLOGY_ID`) REFERENCES `PROJECT_METHODOLOGIES` (`PROJECT_METHODOLOGY_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_CASES">
+                CREATE TABLE `PROJECT_CASES` (
+                `PROJECT_CASE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_CASE_DISCRIPTION` text NOT NULL,
+                `PROJECT_CASE_SOLUTION` text NOT NULL,
+                `PROJECT_CASE_STAGE_ID` int(11) NOT NULL,
+                `PROJECT_CASE_EFFICIENCY` double NOT NULL,
+                `PROJECT_ID` int(11) NOT NULL,
+                PRIMARY KEY (`PROJECT_CASE_ID`),
+                KEY `PROJECT_CASE_STAGE_ID3` (`PROJECT_CASE_STAGE_ID`),
+                KEY `PROJECT_ID5` (`PROJECT_ID`),
+                CONSTRAINT `PROJECT_CASE_STAGE_ID3` FOREIGN KEY (`PROJECT_CASE_STAGE_ID`) REFERENCES `PROJECT_STAGES` (`PROJECT_STAGE_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_ID5` FOREIGN KEY (`PROJECT_ID`) REFERENCES `PROJECTS` (`PROJECT_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_METHODOLOGIES">
+                CREATE TABLE `PROJECT_METHODOLOGIES` (
+                `PROJECT_METHODOLOGY_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_METHODOLOGY_NAME` varchar(1024) DEFAULT NULL,
+                `PROJECT_METHODOLOGIES_TYPE_ID` int(11) NOT NULL,
+                PRIMARY KEY (`PROJECT_METHODOLOGY_ID`),
+                KEY `PROJECT_METHODOLOGIES_TYPES` (`PROJECT_METHODOLOGIES_TYPE_ID`),
+                CONSTRAINT `PROJECT_METHODOLOGIES_TYPES` FOREIGN KEY (`PROJECT_METHODOLOGIES_TYPE_ID`) REFERENCES `PROJECT_METHODOLOGIES_TYPES` (`PROJECT_METHODOLOGIES_TYPE_ID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_METHODOLOGIES_TYPES">
+                CREATE TABLE `PROJECT_METHODOLOGIES_TYPES` (
+                `PROJECT_METHODOLOGIES_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_METHODOLOGIES_TYPE_NAME` varchar(255) NOT NULL,
+                PRIMARY KEY (`PROJECT_METHODOLOGIES_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_STAGES">
+                CREATE TABLE `PROJECT_STAGES` (
+                `PROJECT_STAGE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_STAGE_TYPE_ID` int(11) NOT NULL,
+                `EXECUTOR_ID` int(11) NOT NULL,
+                `PROJECT_ID` int(11) NOT NULL,
+                `PLAN_DATE_START` date DEFAULT NULL,
+                `PLAN_DATE_END` date DEFAULT NULL,
+                `FACT_DATE_START` date DEFAULT NULL,
+                `FACT_DATE_END` date DEFAULT NULL,
+                PRIMARY KEY (`PROJECT_STAGE_ID`),
+                KEY `PROJECT_ID1` (`PROJECT_ID`),
+                KEY `EXECUTOR_ID1` (`EXECUTOR_ID`),
+                KEY `PROJECT_STAGE_TYPE_ID` (`PROJECT_STAGE_TYPE_ID`) USING BTREE,
+                CONSTRAINT `EXECUTOR_ID1` FOREIGN KEY (`EXECUTOR_ID`) REFERENCES `EXECUTORS` (`EXECUTOR_ID`),
+                CONSTRAINT `PROJECT_ID1` FOREIGN KEY (`PROJECT_ID`) REFERENCES `PROJECTS` (`PROJECT_ID`),
+                CONSTRAINT `PROJECT_STAGE_NAME_ID` FOREIGN KEY (`PROJECT_STAGE_TYPE_ID`) REFERENCES `PROJECT_STAGE_TYPES` (`PROJECT_STAGE_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_STAGE_TYPES">
+                CREATE TABLE `PROJECT_STAGE_TYPES` (
+                `PROJECT_STAGE_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `STAGE_NAME` varchar(1024) NOT NULL,
+                PRIMARY KEY (`PROJECT_STAGE_TYPE_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TASKS">
+                CREATE TABLE `PROJECT_TASKS` (
+                `PROJECT_TASK_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_TASK_NAME` varchar(1024) NOT NULL,
+                `EXECUTOR_ID` int(11) NOT NULL,
+                `PLAN_DATE_START` date DEFAULT NULL,
+                `PLAN_DATE_END` date DEFAULT NULL,
+                `FACT_DATE_START` date DEFAULT NULL,
+                `FACT_DATE_END` date DEFAULT NULL,
+                `PROJECT_STAGE_ID` int(11) NOT NULL,
+                `PROJECT_TASK_TYPE_ID` int(11) NOT NULL,
+                `PROJECT_TASK_PRIORITY_ID` int(11) NOT NULL,
+                `PROJECT_TASK_STATUS_ID` int(11) NOT NULL,
+                `PROJECT_TASK_ESTIMATION` int(11) NOT NULL,
+                `PROJECT_TASK_STORY_POINTS` int(11) NOT NULL,
+                `PROJECT_ID` int(11) NOT NULL,
+                PRIMARY KEY (`PROJECT_TASK_ID`),
+                KEY `EXECUTOR_ID2` (`EXECUTOR_ID`),
+                KEY `PROJECT_STAGE_ID2` (`PROJECT_STAGE_ID`),
+                KEY `PROJECT_TASK_TYPE_ID` (`PROJECT_TASK_TYPE_ID`),
+                KEY `PROJECT_ID4` (`PROJECT_ID`),
+                KEY `PROJECT_TASK_STATUS_ID` (`PROJECT_TASK_STATUS_ID`),
+                KEY `PROJECT_TASK_PRIORITY` (`PROJECT_TASK_PRIORITY_ID`),
+                CONSTRAINT `EXECUTOR_ID2` FOREIGN KEY (`EXECUTOR_ID`) REFERENCES `EXECUTORS` (`EXECUTOR_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_ID4` FOREIGN KEY (`PROJECT_ID`) REFERENCES `PROJECTS` (`PROJECT_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_STAGE_ID2` FOREIGN KEY (`PROJECT_STAGE_ID`) REFERENCES `PROJECT_STAGES` (`PROJECT_STAGE_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_TASK_PRIORITY` FOREIGN KEY (`PROJECT_TASK_PRIORITY_ID`) REFERENCES `PROJECT_TASK_PRIORITIES` (`PROJECT_TASK_PRIORITY_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_TASK_STATUS_ID` FOREIGN KEY (`PROJECT_TASK_STATUS_ID`) REFERENCES `PROJECT_TASK_STATUSES` (`PROJECT_TASK_STATUS_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_TASK_TYPE_ID` FOREIGN KEY (`PROJECT_TASK_TYPE_ID`) REFERENCES `PROJECT_TASK_TYPES` (`PROJECT_TASK_TYPE_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TASK_PRIORITIES">
+                CREATE TABLE `PROJECT_TASK_PRIORITIES` (
+                `PROJECT_TASK_PRIORITY_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_TASK_PRIORITY_NAME` varchar(255) DEFAULT NULL,
+                PRIMARY KEY (`PROJECT_TASK_PRIORITY_ID`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TASK_STATUSES">
+                CREATE TABLE `PROJECT_TASK_STATUSES` (
+                `PROJECT_TASK_STATUS_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_TASK_STATUS_NAME` varchar(1024) NOT NULL,
+                PRIMARY KEY (`PROJECT_TASK_STATUS_ID`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TASK_TYPES">
+                CREATE TABLE `PROJECT_TASK_TYPES` (
+                `PROJECT_TASK_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_TASK_TYPE_NAME` varchar(1024) DEFAULT NULL,
+                PRIMARY KEY (`PROJECT_TASK_TYPE_ID`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TYPES">
+                CREATE TABLE `PROJECT_TYPES` (
+                `PROJECT_TYPE_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_ID` int(11) NOT NULL,
+                `PROJECT_TYPE_NAME_ID` int(11) NOT NULL,
+                PRIMARY KEY (`PROJECT_TYPE_ID`),
+                KEY `PROJECT_ID` (`PROJECT_ID`),
+                KEY `PROJECT_TYPE_ID` (`PROJECT_TYPE_NAME_ID`),
+                CONSTRAINT `PROJECT_ID` FOREIGN KEY (`PROJECT_ID`) REFERENCES `PROJECTS` (`PROJECT_ID`) ON UPDATE CASCADE,
+                CONSTRAINT `PROJECT_TYPE_ID` FOREIGN KEY (`PROJECT_TYPE_NAME_ID`) REFERENCES `PROJECT_TYPE_NAMES` (`PROJECT_TYPE_NAME_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TYPE_KINDS">
+                CREATE TABLE `PROJECT_TYPE_KINDS` (
+                `PROJECT_TYPE_KIND_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `PROJECT_TYPE_KIND_NAME` varchar(1024) NOT NULL,
+                PRIMARY KEY (`PROJECT_TYPE_KIND_ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+            </pma:table>
+            <pma:table name="PROJECT_TYPE_NAMES">
+                CREATE TABLE `PROJECT_TYPE_NAMES` (
+                `PROJECT_TYPE_NAME_ID` int(11) NOT NULL AUTO_INCREMENT,
+                `NAME` varchar(1024) DEFAULT NULL,
+                `PROJECT_TYPE_KIND_ID` int(11) DEFAULT NULL,
+                PRIMARY KEY (`PROJECT_TYPE_NAME_ID`),
+                KEY `PROJECT_TYPE_KIND_ID` (`PROJECT_TYPE_KIND_ID`),
+                CONSTRAINT `PROJECT_TYPE_KIND_ID` FOREIGN KEY (`PROJECT_TYPE_KIND_ID`) REFERENCES `PROJECT_TYPE_KINDS` (`PROJECT_TYPE_KIND_ID`) ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+</pma_xml_export>

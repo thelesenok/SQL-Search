@@ -1,0 +1,9 @@
+{
+  "requestedOperation": "equals",
+  "requestedProp": "ORGANIZATION_ID",
+  "requestedType": "CUSTOMERS",
+  "searchTypes": [
+    "attributive",
+    "relational"
+  ]
+}

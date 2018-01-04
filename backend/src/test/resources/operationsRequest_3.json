@@ -1,0 +1,9 @@
+{
+  "requestedType": "PROJECTS",
+  "requestedProp": "STRING_COLUMN",
+  "searchTypes": [
+    "attributive",
+    "relational",
+    "fuzzy"
+  ]
+}
