@@ -15,7 +15,7 @@
                 <property>CUSTOMER_FIRST_NAME</property>
                 <column>CUSTOMER_FIRST_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
@@ -89,7 +89,7 @@
                 <property>EXECUTOR_FIRST_NAME</property>
                 <column>EXECUTOR_FIRST_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
@@ -143,7 +143,7 @@
                 <property>EXECUTOR_TYPE_NAME</property>
                 <column>EXECUTOR_TYPE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -193,7 +193,7 @@
                 <property>ORGANIZATION_MANAGEMENT_TYPE_NAME</property>
                 <column>ORGANIZATION_MANAGEMENT_TYPE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -213,7 +213,7 @@
                 <property>NAME</property>
                 <column>NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
@@ -256,7 +256,7 @@
                 <property>PROJECT_CASE_ID</property>
                 <column>PROJECT_CASE_ID</column>
                 <type>NUMBER</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>true</primary-key>
             </property>
             <property>
@@ -296,7 +296,7 @@
                 <property>PROJECT_METHODOLOGY_NAME</property>
                 <column>PROJECT_METHODOLOGY_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
@@ -326,7 +326,7 @@
                 <property>PROJECT_METHODOLOGIES_TYPE_NAME</property>
                 <column>PROJECT_METHODOLOGIES_TYPE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -339,7 +339,7 @@
                 <property>PROJECT_STAGE_ID</property>
                 <column>PROJECT_STAGE_ID</column>
                 <type>NUMBER</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>true</primary-key>
             </property>
             <property>
@@ -380,7 +380,7 @@
                 <property>STAGE_NAME</property>
                 <column>STAGE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -400,7 +400,7 @@
                 <property>PROJECT_TASK_NAME</property>
                 <column>PROJECT_TASK_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
@@ -494,7 +494,7 @@
                 <property>PROJECT_TASK_PRIORITY_NAME</property>
                 <column>PROJECT_TASK_PRIORITY_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -514,7 +514,7 @@
                 <property>PROJECT_TASK_STATUS_NAME</property>
                 <column>PROJECT_TASK_STATUS_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -534,7 +534,7 @@
                 <property>PROJECT_TASK_TYPE_NAME</property>
                 <column>PROJECT_TASK_TYPE_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -547,7 +547,7 @@
                 <property>PROJECT_TYPE_ID</property>
                 <column>PROJECT_TYPE_ID</column>
                 <type>NUMBER</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>true</primary-key>
             </property>
             <property>
@@ -587,7 +587,7 @@
                 <property>PROJECT_TYPE_KIND_NAME</property>
                 <column>PROJECT_TYPE_KIND_NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
         </properties>
@@ -607,7 +607,7 @@
                 <property>NAME</property>
                 <column>NAME</column>
                 <type>STRING</type>
-                <display-property>false</display-property>
+                <display-property>true</display-property>
                 <primary-key>false</primary-key>
             </property>
             <property>
