@@ -12,14 +12,5 @@ pipelines:
           - gradle
         script:
           - bash ./gradlew :backend:clean
-    - step:
-        caches:
-          - gradle
-        script:
-          - bash ./gradlew :frontend:test
           - bash ./gradlew :backend:test
-    - step:
-        caches:
-          - gradle
-        script:
           - bash ./gradlew :backend:build
