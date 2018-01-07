@@ -260,6 +260,27 @@
                 <primary-key>true</primary-key>
             </property>
             <property>
+                <property>PROJECT_CASE_DISCRIPTION</property>
+                <column>PROJECT_CASE_DISCRIPTION</column>
+                <type>STRING</type>
+                <display-property>false</display-property>
+                <primary-key>false</primary-key>
+            </property>
+            <property>
+                <property>PROJECT_CASE_SOLUTION</property>
+                <column>PROJECT_CASE_SOLUTION</column>
+                <type>STRING</type>
+                <display-property>false</display-property>
+                <primary-key>false</primary-key>
+            </property>
+            <property>
+                <property>PROJECT_CASE_EFFICIENCY</property>
+                <column>PROJECT_CASE_EFFICIENCY</column>
+                <type>STRING</type>
+                <display-property>false</display-property>
+                <primary-key>false</primary-key>
+            </property>
+            <property>
                 <property>PROJECT_CASE_STAGE_ID</property>
                 <column>PROJECT_CASE_STAGE_ID</column>
                 <type>REFERENCE</type>
